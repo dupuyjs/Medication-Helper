@@ -1,0 +1,27 @@
+{
+  "name": "medicine-assistant",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dupuyjs/Medicine-Assistant.git"
+  },
+  "author": "Jean-Sébastien Dupuy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dupuyjs/Medicine-Assistant/issues"
+  },
+  "homepage": "https://github.com/dupuyjs/Medicine-Assistant#readme",
+  "dependencies": {
+    "@types/restify": "^5.0.7",
+    "botbuilder": "^3.14.1",
+    "botbuilder-azure": "^3.0.4",
+    "dotenv": "^5.0.1",
+    "restify": "^7.1.1",
+    "typescript": "^2.8.1"
+  }
+}
