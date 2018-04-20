@@ -17,10 +17,12 @@
   },
   "homepage": "https://github.com/dupuyjs/Medicine-Assistant#readme",
   "dependencies": {
+    "@types/node-fetch": "^1.6.8",
     "@types/restify": "^5.0.7",
     "botbuilder": "^3.14.1",
     "botbuilder-azure": "^3.0.4",
     "dotenv": "^5.0.1",
+    "node-fetch": "^2.1.2",
     "restify": "^7.1.1",
     "typescript": "^2.8.1"
   }

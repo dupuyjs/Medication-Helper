@@ -1,11 +1,23 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const restify = require("restify");
 const builder = require("botbuilder");
 const storage = require("botbuilder-azure");
-const dotenv = require('dotenv').config();
+// Services and helpers
+const openmedicaments_service_1 = require("./services/openmedicaments-service");
+// Dialogs
 // <<< --- DECLARE YOUR LIBRARIES HERE --- >>>
 const greetings = require("./dialogs/greetings-dialog");
+// Loading environment variables
+const dotenv = require('dotenv').config();
 // Table storage
 const enableAzureTableState = process.env.ENABLE_STATE_AZURE_TABLE === 'true' || false;
 const stateAzureTableName = process.env.STATE_AZURE_TABLE_NAME || '';
@@ -48,7 +60,11 @@ bot.on('conversationUpdate', (message) => {
 // First dialog
 bot.dialog('/', [
     function (session) {
-        builder.Prompts.text(session, "Hello... What's your name?");
+        return __awaiter(this, void 0, void 0, function* () {
+            var json = yield openmedicaments_service_1.default.getMedicineCodeFromQueryAsync("doliprane");
+            var test = yield openmedicaments_service_1.default.getMedicineFromIdAsync(json[0].codeCIS);
+            builder.Prompts.text(session, "Hello... What's your name?");
+        });
     },
     function (session, results) {
         session.userData.name = results.response;

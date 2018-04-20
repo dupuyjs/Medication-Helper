@@ -3,10 +3,15 @@ import * as builder from 'botbuilder';
 import { IConversationUpdate, IIdentity } from 'botbuilder';
 import * as storage from 'botbuilder-azure';
 
-const dotenv = require('dotenv').config(); 
+// Services and helpers
+import openmedicament from "./services/openmedicaments-service";
 
+// Dialogs
 // <<< --- DECLARE YOUR LIBRARIES HERE --- >>>
 import * as greetings from './dialogs/greetings-dialog';
+
+// Loading environment variables
+const dotenv = require('dotenv').config(); 
 
 // Table storage
 const enableAzureTableState =  process.env.ENABLE_STATE_AZURE_TABLE === 'true' || false;
@@ -56,7 +61,10 @@ bot.on('conversationUpdate', (message: IConversationUpdate) => {
 
 // First dialog
 bot.dialog('/', [
-    function (session) {
+    async function (session) {
+        var json = await openmedicament.getMedicineCodeFromQueryAsync("doliprane")
+        var test = await openmedicament.getMedicineFromIdAsync(json[0].codeCIS)
+        
         builder.Prompts.text(session, "Hello... What's your name?");
     },
     function (session, results) {
