@@ -4,7 +4,8 @@ import { IConversationUpdate, IIdentity } from 'botbuilder';
 import * as storage from 'botbuilder-azure';
 
 // Services and helpers
-import openmedicament from "./services/openmedicaments-service";
+import openmedicament from "./services/api-openmedicaments";
+import translator from "./services/cognitive-translator";
 
 // Dialogs
 // <<< --- DECLARE YOUR LIBRARIES HERE --- >>>
@@ -62,9 +63,6 @@ bot.on('conversationUpdate', (message: IConversationUpdate) => {
 // First dialog
 bot.dialog('/', [
     async function (session) {
-        var json = await openmedicament.getMedicineCodeFromQueryAsync("doliprane")
-        var test = await openmedicament.getMedicineFromIdAsync(json[0].codeCIS)
-        
         builder.Prompts.text(session, "Hello... What's your name?");
     },
     function (session, results) {

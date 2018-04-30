@@ -11,8 +11,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const restify = require("restify");
 const builder = require("botbuilder");
 const storage = require("botbuilder-azure");
-// Services and helpers
-const openmedicaments_service_1 = require("./services/openmedicaments-service");
 // Dialogs
 // <<< --- DECLARE YOUR LIBRARIES HERE --- >>>
 const greetings = require("./dialogs/greetings-dialog");
@@ -61,8 +59,6 @@ bot.on('conversationUpdate', (message) => {
 bot.dialog('/', [
     function (session) {
         return __awaiter(this, void 0, void 0, function* () {
-            var json = yield openmedicaments_service_1.default.getMedicineCodeFromQueryAsync("doliprane");
-            var test = yield openmedicaments_service_1.default.getMedicineFromIdAsync(json[0].codeCIS);
             builder.Prompts.text(session, "Hello... What's your name?");
         });
     },
