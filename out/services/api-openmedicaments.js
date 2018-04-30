@@ -11,17 +11,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const node_fetch_1 = require("node-fetch");
 let baseUrl = 'https://open-medicaments.fr/api/v1/medicaments';
 /**
- * Open Medicaments API Client SDK (https://www.open-medicaments.fr/#/home)
+ * Open Medicaments API Client SDK (https://www.open-medicaments.fr/#/home) (French)
  * @class OpenMedicamentsService
  */
 class OpenMedicamentsService {
     /**
-     * Get an array of MedicineCode from query string (medicine name)
-     * @method getMedicineCodeFromQueryAsync
+     * Get an array of MedicationCode from query string (medication name)
+     * @method getMedicationCodeFromQueryAsync
      * @param {string} query
-     * @returns {Array<MedicineCode>}
+     * @returns {Array<MedicationCode>}
      */
-    getMedicineCodeFromQueryAsync(query) {
+    getMedicationCodeFromQueryAsync(query) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!query) {
                 throw new Error('query argument is empty or undefined');
@@ -38,12 +38,12 @@ class OpenMedicamentsService {
         });
     }
     /**
-     * Get a Medicine from CIS code (incl. in MedicineCode)
-     * @method getMedicineFromIdAsync
+     * Get a Medication from CIS code (incl. in MedicationCode)
+     * @method getMedicationFromIdAsync
      * @param {string} id
-     * @returns {Medicine}
+     * @returns {Medication}
      */
-    getMedicineFromIdAsync(id) {
+    getMedicationFromIdAsync(id) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!id) {
                 throw new Error('id argument is empty or undefined');

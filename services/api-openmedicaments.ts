@@ -3,18 +3,18 @@ import fetch from 'node-fetch';
 let baseUrl = 'https://open-medicaments.fr/api/v1/medicaments'
 
 /**
- * Open Medicaments API Client SDK (https://www.open-medicaments.fr/#/home)
+ * Open Medicaments API Client SDK (https://www.open-medicaments.fr/#/home) (French)
  * @class OpenMedicamentsService
  */
 export class OpenMedicamentsService {
 
     /**
-     * Get an array of MedicineCode from query string (medicine name)
-     * @method getMedicineCodeFromQueryAsync
+     * Get an array of MedicationCode from query string (medication name)
+     * @method getMedicationCodeFromQueryAsync
      * @param {string} query
-     * @returns {Array<MedicineCode>}
+     * @returns {Array<MedicationCode>}
      */
-    public async getMedicineCodeFromQueryAsync(query: string): Promise<Array<MedicineCode>> {
+    public async getMedicationCodeFromQueryAsync(query: string): Promise<Array<MedicationCode>> {
 
         if (!query) {
             throw new Error('query argument is empty or undefined')
@@ -35,12 +35,12 @@ export class OpenMedicamentsService {
     }
 
     /**
-     * Get a Medicine from CIS code (incl. in MedicineCode)
-     * @method getMedicineFromIdAsync
+     * Get a Medication from CIS code (incl. in MedicationCode)
+     * @method getMedicationFromIdAsync
      * @param {string} id
-     * @returns {Medicine}
+     * @returns {Medication}
      */
-    public async getMedicineFromIdAsync(id: string): Promise<Medicine> {
+    public async getMedicationFromIdAsync(id: string): Promise<Medication> {
 
         if (!id) {
             throw new Error('id argument is empty or undefined')
@@ -60,12 +60,12 @@ export class OpenMedicamentsService {
     }
 }
 
-export interface MedicineCode {
+export interface MedicationCode {
     codeCIS: string;
     denomination: string;
 }
 
-export interface Medicine {
+export interface Medication {
     codeCIS: string;
     denomination: string;
     formePharmaceutique: string;
