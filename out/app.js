@@ -1,12 +1,4 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const restify = require("restify");
 const builder = require("botbuilder");
@@ -14,6 +6,7 @@ const storage = require("botbuilder-azure");
 // Dialogs
 // <<< --- DECLARE YOUR LIBRARIES HERE --- >>>
 const greetings = require("./dialogs/greetings-dialog");
+const composition = require("./dialogs/drug-composition-dialog");
 // Loading environment variables
 const dotenv = require('dotenv').config();
 // Table storage
@@ -21,6 +14,9 @@ const enableAzureTableState = process.env.ENABLE_STATE_AZURE_TABLE === 'true' ||
 const stateAzureTableName = process.env.STATE_AZURE_TABLE_NAME || '';
 const stateAzureStorageAccountName = process.env.STATE_AZURE_STORAGE_ACCOUNT_NAME || '';
 const stateAzureStorageAccountKey = process.env.STATE_AZURE_STORAGE_ACCOUNT_KEY || '';
+//=========================================================
+// Bot Setup
+//=========================================================
 // Setup restify server
 let server = restify.createServer();
 server.listen(process.env.port || process.env.PORT || 8080, () => {
@@ -33,19 +29,24 @@ let connector = new builder.ChatConnector({
 });
 // Listen for messages from users 
 server.post('/api/messages', connector.listen());
-// Receive messages from the user and respond
+// Bot instantiation
 var bot = new builder.UniversalBot(connector, {
     localizerSettings: { defaultLocale: "en" }
 });
+// Enable conversation states (storage in azure)
 if (enableAzureTableState) {
     console.log(`State will be stored in Azure Table Storage. Table Name: ${stateAzureTableName}, Storage Name: ${stateAzureStorageAccountName}`);
     let azureTableClient = new storage.AzureTableClient(stateAzureTableName, stateAzureStorageAccountName, stateAzureStorageAccountKey);
     let tableStorage = new storage.AzureBotStorage({ gzipData: false }, azureTableClient);
     bot.set('storage', tableStorage);
 }
+//=========================================================
+// Bot Dialogs Configuration
+//=========================================================
 // <<< --- ADD YOUR LIBRARIES HERE --- >>>
 bot.library(greetings.createLibrary());
-// Send greetings to user when joining the conversation
+bot.library(composition.createLibrary());
+// Conversation Update - Send greetings to user when joining the conversation
 bot.on('conversationUpdate', (message) => {
     if (message.membersAdded) {
         message.membersAdded.forEach((identity) => {
@@ -55,26 +56,8 @@ bot.on('conversationUpdate', (message) => {
         });
     }
 });
-// First dialog
-bot.dialog('/', [
-    function (session) {
-        return __awaiter(this, void 0, void 0, function* () {
-            builder.Prompts.text(session, "Hello... What's your name?");
-        });
-    },
-    function (session, results) {
-        session.userData.name = results.response;
-        builder.Prompts.number(session, "Hi " + results.response + ", How many years have you been coding?");
-    },
-    function (session, results) {
-        session.userData.coding = results.response;
-        builder.Prompts.choice(session, "What language do you code Node using?", ["JavaScript", "CoffeeScript", "TypeScript"]);
-    },
-    function (session, results) {
-        session.userData.language = results.response.entity;
-        session.send("Got it... " + session.userData.name +
-            " you've been programming for " + session.userData.coding +
-            " years and use " + session.userData.language + ".");
-    }
-]);
+// Adding natural language support (Language Understanding)
+const luis = process.env.COGNITIVE_LUIS_URL || '';
+let luisRecognizer = new builder.LuisRecognizer(luis);
+bot.recognizer(luisRecognizer);
 //# sourceMappingURL=app.js.map

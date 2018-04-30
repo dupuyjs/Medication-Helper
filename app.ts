@@ -10,6 +10,7 @@ import translator from "./services/cognitive-translator";
 // Dialogs
 // <<< --- DECLARE YOUR LIBRARIES HERE --- >>>
 import * as greetings from './dialogs/greetings-dialog';
+import * as composition from './dialogs/drug-composition-dialog';
 
 // Loading environment variables
 const dotenv = require('dotenv').config(); 
@@ -19,6 +20,10 @@ const enableAzureTableState =  process.env.ENABLE_STATE_AZURE_TABLE === 'true' |
 const stateAzureTableName = process.env.STATE_AZURE_TABLE_NAME || '';
 const stateAzureStorageAccountName = process.env.STATE_AZURE_STORAGE_ACCOUNT_NAME || ''; 
 const stateAzureStorageAccountKey = process.env.STATE_AZURE_STORAGE_ACCOUNT_KEY || '';
+
+//=========================================================
+// Bot Setup
+//=========================================================
 
 // Setup restify server
 let server = restify.createServer();
@@ -35,10 +40,11 @@ let connector = new builder.ChatConnector({
 // Listen for messages from users 
 server.post('/api/messages', connector.listen());
 
-// Receive messages from the user and respond
+// Bot instantiation
 var bot = new builder.UniversalBot(connector, { 
     localizerSettings: { defaultLocale: "en"}});
 
+// Enable conversation states (storage in azure)
 if (enableAzureTableState) {
     console.log(`State will be stored in Azure Table Storage. Table Name: ${stateAzureTableName}, Storage Name: ${stateAzureStorageAccountName}`);
     let azureTableClient = new storage.AzureTableClient(stateAzureTableName, stateAzureStorageAccountName, stateAzureStorageAccountKey);
@@ -46,10 +52,15 @@ if (enableAzureTableState) {
     bot.set('storage', tableStorage);
 }
 
+//=========================================================
+// Bot Dialogs Configuration
+//=========================================================
+
 // <<< --- ADD YOUR LIBRARIES HERE --- >>>
 bot.library(greetings.createLibrary());
+bot.library(composition.createLibrary());
 
-// Send greetings to user when joining the conversation
+// Conversation Update - Send greetings to user when joining the conversation
 bot.on('conversationUpdate', (message: IConversationUpdate) => {
     if (message.membersAdded) {
         message.membersAdded.forEach((identity: IIdentity) => {
@@ -60,23 +71,7 @@ bot.on('conversationUpdate', (message: IConversationUpdate) => {
     }
 });
 
-// First dialog
-bot.dialog('/', [
-    async function (session) {
-        builder.Prompts.text(session, "Hello... What's your name?");
-    },
-    function (session, results) {
-        session.userData.name = results.response;
-        builder.Prompts.number(session, "Hi " + results.response + ", How many years have you been coding?"); 
-    },
-    function (session, results) {
-        session.userData.coding = results.response;
-        builder.Prompts.choice(session, "What language do you code Node using?", ["JavaScript", "CoffeeScript", "TypeScript"]);
-    },
-    function (session, results) {
-        session.userData.language = results.response.entity;
-        session.send("Got it... " + session.userData.name + 
-                     " you've been programming for " + session.userData.coding + 
-                     " years and use " + session.userData.language + ".");
-    }
-]);
+// Adding natural language support (Language Understanding)
+const luis = process.env.COGNITIVE_LUIS_URL || '';
+let luisRecognizer = new builder.LuisRecognizer(luis);
+bot.recognizer(luisRecognizer);
