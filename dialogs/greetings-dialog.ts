@@ -3,7 +3,7 @@ import * as builder from 'botbuilder';
 let lib = new builder.Library('greetings');
 
 lib.dialog('start',
-    async (session: builder.Session, args: any) => {
+    (session: builder.Session, args: any) => {
         session.send("greetings_welcome");
         session.endDialog(); // <---  DON'T FORGET TO END THE DIALOG
     });
