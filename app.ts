@@ -11,6 +11,8 @@ import translator from "./services/cognitive-translator";
 // <<< --- DECLARE YOUR LIBRARIES HERE --- >>>
 import * as greetings from './dialogs/greetings-dialog';
 import * as composition from './dialogs/drug-composition-dialog';
+import * as places from './dialogs/findplace-dialog';
+
 
 // Loading environment variables
 const dotenv = require('dotenv').config(); 
@@ -59,6 +61,7 @@ if (enableAzureTableState) {
 // <<< --- ADD YOUR LIBRARIES HERE --- >>>
 bot.library(greetings.createLibrary());
 bot.library(composition.createLibrary());
+bot.library(places.createLibrary());
 
 // Conversation Update - Send greetings to user when joining the conversation
 bot.on('conversationUpdate', (message: IConversationUpdate) => {

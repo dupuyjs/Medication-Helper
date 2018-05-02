@@ -7,6 +7,7 @@ const storage = require("botbuilder-azure");
 // <<< --- DECLARE YOUR LIBRARIES HERE --- >>>
 const greetings = require("./dialogs/greetings-dialog");
 const composition = require("./dialogs/drug-composition-dialog");
+const places = require("./dialogs/findplace-dialog");
 // Loading environment variables
 const dotenv = require('dotenv').config();
 // Table storage
@@ -46,6 +47,7 @@ if (enableAzureTableState) {
 // <<< --- ADD YOUR LIBRARIES HERE --- >>>
 bot.library(greetings.createLibrary());
 bot.library(composition.createLibrary());
+bot.library(places.createLibrary());
 // Conversation Update - Send greetings to user when joining the conversation
 bot.on('conversationUpdate', (message) => {
     if (message.membersAdded) {
