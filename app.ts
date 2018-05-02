@@ -9,6 +9,8 @@ import translator from "./services/cognitive-translator";
 
 // Dialogs
 // <<< --- DECLARE YOUR LIBRARIES HERE --- >>>
+let locationDialog = require('botbuilder-location');
+
 import * as greetings from './dialogs/greetings-dialog';
 import * as composition from './dialogs/drug-composition-dialog';
 import * as places from './dialogs/findplace-dialog';
@@ -59,6 +61,7 @@ if (enableAzureTableState) {
 //=========================================================
 
 // <<< --- ADD YOUR LIBRARIES HERE --- >>>
+bot.library(locationDialog.createLibrary(process.env.BING_MAPS_API_KEY));
 bot.library(greetings.createLibrary());
 bot.library(composition.createLibrary());
 bot.library(places.createLibrary());

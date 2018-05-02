@@ -5,6 +5,7 @@ const builder = require("botbuilder");
 const storage = require("botbuilder-azure");
 // Dialogs
 // <<< --- DECLARE YOUR LIBRARIES HERE --- >>>
+let locationDialog = require('botbuilder-location');
 const greetings = require("./dialogs/greetings-dialog");
 const composition = require("./dialogs/drug-composition-dialog");
 const places = require("./dialogs/findplace-dialog");
@@ -45,6 +46,7 @@ if (enableAzureTableState) {
 // Bot Dialogs Configuration
 //=========================================================
 // <<< --- ADD YOUR LIBRARIES HERE --- >>>
+bot.library(locationDialog.createLibrary(process.env.BING_MAPS_API_KEY));
 bot.library(greetings.createLibrary());
 bot.library(composition.createLibrary());
 bot.library(places.createLibrary());
