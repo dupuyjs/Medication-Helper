@@ -22,6 +22,7 @@
     "botbuilder": "^3.14.1",
     "botbuilder-azure": "^3.0.4",
     "botbuilder-location": "^2.0.0",
+    "country-data": "0.0.31",
     "dotenv": "^5.0.1",
     "node-fetch": "^2.1.2",
     "restify": "^7.1.1",
