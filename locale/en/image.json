@@ -1,0 +1,4 @@
+{
+    "image_language_prompt": "In what language is this medicine box ? You can type 'unknown' if you have no idea.",
+    "image_default_language": "Sorry, I didn't get it. I support at the moment 25 languages but I don't know this one."
+}
