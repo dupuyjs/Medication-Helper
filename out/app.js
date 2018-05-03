@@ -7,7 +7,7 @@ const storage = require("botbuilder-azure");
 // <<< --- DECLARE YOUR LIBRARIES HERE --- >>>
 let locationDialog = require('botbuilder-location');
 const greetings = require("./dialogs/greetings-dialog");
-const composition = require("./dialogs/medication-dialog");
+const medication = require("./dialogs/medication-dialog");
 const places = require("./dialogs/findplace-dialog");
 // Loading environment variables
 const dotenv = require('dotenv').config();
@@ -48,7 +48,7 @@ if (enableAzureTableState) {
 // <<< --- ADD YOUR LIBRARIES HERE --- >>>
 bot.library(locationDialog.createLibrary(process.env.BING_MAPS_API_KEY));
 bot.library(greetings.createLibrary());
-bot.library(composition.createLibrary());
+bot.library(medication.createLibrary());
 bot.library(places.createLibrary());
 // Conversation Update - Send greetings to user when joining the conversation
 bot.on('conversationUpdate', (message) => {

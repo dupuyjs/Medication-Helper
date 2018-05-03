@@ -12,7 +12,7 @@ import translator from "./services/cognitive-translator";
 let locationDialog = require('botbuilder-location');
 
 import * as greetings from './dialogs/greetings-dialog';
-import * as composition from './dialogs/medication-dialog';
+import * as medication from './dialogs/medication-dialog';
 import * as places from './dialogs/findplace-dialog';
 
 
@@ -63,7 +63,7 @@ if (enableAzureTableState) {
 // <<< --- ADD YOUR LIBRARIES HERE --- >>>
 bot.library(locationDialog.createLibrary(process.env.BING_MAPS_API_KEY));
 bot.library(greetings.createLibrary());
-bot.library(composition.createLibrary());
+bot.library(medication.createLibrary());
 bot.library(places.createLibrary());
 
 // Conversation Update - Send greetings to user when joining the conversation
