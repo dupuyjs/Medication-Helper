@@ -13,17 +13,19 @@ const botbuilder_1 = require("botbuilder");
 const api_bingspatialdata_1 = require("../services/api-bingspatialdata");
 let locationDialog = require('botbuilder-location');
 let lib = new builder.Library('places');
+// Dialog triggered on Intent.FindPlace (ex. Find a Pharmacy in Paris)
 lib.dialog('findplace', [
     (session, args, next) => {
         let place;
         let heathplace = false;
         if (args && args.intent) {
             let intent = args.intent;
+            // Get Place.Type and Place.Location entities
             let typeEntity = builder.EntityRecognizer.findEntity(intent.entities, 'Place.Type');
             let locationEntity = builder.EntityRecognizer.findEntity(intent.entities, 'Place.Location');
             place = session.dialogData.place = {
                 type: typeEntity ? typeEntity.resolution.values[0] : undefined,
-                location: locationEntity ? locationEntity.resolution : undefined,
+                location: locationEntity ? locationEntity.entity : undefined,
             };
             // We want to manage only medical places
             heathplace = place.type == 'hospital' || place.type == 'pharmacy';
@@ -33,7 +35,7 @@ lib.dialog('findplace', [
         }
         else {
             if (next)
-                next();
+                return next();
         }
     },
     (session, results, next) => {
@@ -41,9 +43,15 @@ lib.dialog('findplace', [
         if (results && results.response) {
             place.type = session.dialogData.place.type = results.response.entity;
         }
+        // Check if we already have a location
+        if (place.location) {
+            if (next)
+                return next();
+        }
+        let location_text = session.localizer.gettext(session.preferredLocale(), "location_prompt", "places");
         // Trigger prompt to get the user location
         let options = {
-            prompt: "Where are you located ?",
+            prompt: location_text,
             useNativeControl: true,
             reverseGeocode: true,
             skipConfirmationAsk: true,
@@ -62,29 +70,54 @@ lib.dialog('findplace', [
         if (results && results.response) {
             place.location = session.dialogData.place.location = results.response;
         }
+        let type = (place.type == 'pharmacy') ? api_bingspatialdata_1.EntityType.Pharmacy : api_bingspatialdata_1.EntityType.Hospital;
+        // We have a location and type of location - we can perform the search
         try {
-            let data = yield api_bingspatialdata_1.default.getSpatialDataFromAreaAsync(place.location.geo.latitude, place.location.geo.longitude, api_bingspatialdata_1.EntityType.Pharmacy);
+            let data = undefined;
+            if (place.location.geo && place.location.geo.latitude && place.location.geo.longitude) {
+                data = yield api_bingspatialdata_1.default.getSpatialDataFromLatitudeLongitudeAsync(place.location.geo.latitude, place.location.geo.longitude, type);
+            }
+            else {
+                data = yield api_bingspatialdata_1.default.getSpatialDataFromAddressAsync(place.location, type);
+            }
             let message = formatCarouselMessage(session, place, data);
             session.send(message);
         }
         catch (error) {
             console.error("spatialData.getSpatialDataFromAreaAsync. " + error);
         }
-        session.endDialog();
+        return session.endDialog();
     })
 ]).triggerAction({ matches: 'Intent.FindPlace' });
+/**
+ * Format points of interest to a carousel message
+ * @method formatCarouselMessage
+ * @param {builder.Session} session
+ * @param {IStoredData} place
+ * @param {SpatialData} data
+ */
 function formatCarouselMessage(session, place, data) {
     let cards = new Array();
-    let userLatitude = place.location.geo.latitude;
-    let userLongitude = place.location.geo.longitude;
+    let isLatitudeLongitude;
+    if (place.location.geo && place.location.geo.latitude && place.location.geo.longitude) {
+        isLatitudeLongitude = true;
+    }
+    else {
+        isLatitudeLongitude = false;
+    }
     let bingUrl = 'https://bing.com';
-    let message = new builder.Message().text("Oups. No item found. It seems I cannot help you at the moment :(.");
+    let notfound_text = session.localizer.gettext(session.preferredLocale(), "notfound_message", "places");
+    let message = new builder.Message(session)
+        .text(notfound_text);
     // Ensure we returns only a maximum of five answers.
     if (data && data.d && data.d.results && data.d.results.length > 0) {
         for (let item of data.d.results) {
-            if (userLatitude && userLongitude && item.Latitude && item.Longitude) {
+            if (isLatitudeLongitude) {
                 // Bing maps Uri scheme (https://msdn.microsoft.com/en-us/library/dn217138.aspx)
-                bingUrl = `https://bing.com/maps/default.aspx?rtp=pos.${userLatitude}_${userLongitude}~pos.${item.Latitude}_${item.Longitude}_${item.DisplayName}&rtop=0~1~0`;
+                bingUrl = `https://bing.com/maps/default.aspx?rtp=pos.${place.location.geo.latitude}_${place.location.geo.longitude}~pos.${item.Latitude}_${item.Longitude}_${item.DisplayName}&rtop=0~1~0`;
+            }
+            else {
+                bingUrl = `https://bing.com/maps/default.aspx?rtp=adr.${place.location}~pos.${item.Latitude}_${item.Longitude}_${item.DisplayName}&rtop=0~1~0`;
             }
             cards.push(new builder.ThumbnailCard(session)
                 .title(item.DisplayName)
@@ -93,9 +126,9 @@ function formatCarouselMessage(session, place, data) {
                 builder.CardAction.openUrl(session, bingUrl, "get directions")
             ]));
         }
-        session.send(data.d.__copyright);
+        let foundplaces_text = session.localizer.gettext(session.preferredLocale(), "foundplaces_message", "places");
         message = new builder.Message(session)
-            .text("We found the following places for you.")
+            .text(foundplaces_text)
             .attachmentLayout(builder.AttachmentLayout.carousel)
             .attachments(cards);
     }
