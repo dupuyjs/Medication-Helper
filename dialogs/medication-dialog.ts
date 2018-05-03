@@ -1,6 +1,7 @@
 import * as builder from 'botbuilder';
 import openmedicament from "../services/api-openmedicaments";
 import { Medication, MedicationCode } from "../services/api-openmedicaments";
+import translator from "../services/cognitive-translator";
 
 let lib = new builder.Library('medication');
 
@@ -14,14 +15,14 @@ interface IStoredData {
     search: MedicationCode[]|undefined
 }
 
-lib.dialog('composition', [
+lib.dialog('information', [
     async (session: builder.Session, args: any, next?: (results?: builder.IDialogResult<any>) => void) => {
         let medication: IStoredData|undefined = undefined;
 
         // Get the Medication entity
         if (args && args.intent) {
             let intent = args.intent;
-            let medicationEntity: IEntityEx = builder.EntityRecognizer.findEntity(intent.entities, 'Medication') as IEntityEx;
+            let medicationEntity: IEntityEx = builder.EntityRecognizer.findEntity(intent.entities, 'Medication.Name') as IEntityEx;
 
             medication = session.dialogData.drug = {
                 name: medicationEntity ? medicationEntity.entity : undefined,
@@ -65,9 +66,15 @@ lib.dialog('composition', [
                 if (item.denomination == response) {
                     let drug = await openmedicament.getMedicationFromIdAsync(item.codeCIS);
 
+                    session.send(drug.denomination);
+
+                    let translatedIndications = await translator.getTranslationAsync(drug.indicationsTherapeutiques, 'fr', 'en');
+                    if (translatedIndications) session.send(translatedIndications);
+
                     for(var composition of drug.compositions) {
                         for(var substance of composition.substancesActives) {
-                            session.send(`${substance.denominationSubstance} with a dosage of ${substance.dosageSubstance}`);
+                            let translatedSubstance = await translator.getTranslationAsync(substance.denominationSubstance, 'fr', 'en');
+                            session.send(`${translatedSubstance} with a dosage of ${substance.dosageSubstance}`);
                         }
                     }
                 }
@@ -76,7 +83,7 @@ lib.dialog('composition', [
 
         session.endDialog();
     }
-]).triggerAction({ matches: 'Intent.Medication.GetComposition' });
+]).triggerAction({ matches: 'Intent.Medications.GetInformation' });
 
 
 function medicationPrompt(session: builder.Session, search: MedicationCode[], next?: (results?: builder.IDialogResult<any>) => void) {

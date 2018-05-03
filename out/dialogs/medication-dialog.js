@@ -10,14 +10,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const builder = require("botbuilder");
 const api_openmedicaments_1 = require("../services/api-openmedicaments");
+const cognitive_translator_1 = require("../services/cognitive-translator");
 let lib = new builder.Library('medication');
-lib.dialog('composition', [
+lib.dialog('information', [
     (session, args, next) => __awaiter(this, void 0, void 0, function* () {
         let medication = undefined;
         // Get the Medication entity
         if (args && args.intent) {
             let intent = args.intent;
-            let medicationEntity = builder.EntityRecognizer.findEntity(intent.entities, 'Medication');
+            let medicationEntity = builder.EntityRecognizer.findEntity(intent.entities, 'Medication.Name');
             medication = session.dialogData.drug = {
                 name: medicationEntity ? medicationEntity.entity : undefined,
                 search: undefined
@@ -57,9 +58,14 @@ lib.dialog('composition', [
             for (let item of medication.search) {
                 if (item.denomination == response) {
                     let drug = yield api_openmedicaments_1.default.getMedicationFromIdAsync(item.codeCIS);
+                    session.send(drug.denomination);
+                    let translatedIndications = yield cognitive_translator_1.default.getTranslationAsync(drug.indicationsTherapeutiques, 'fr', 'en');
+                    if (translatedIndications)
+                        session.send(translatedIndications);
                     for (var composition of drug.compositions) {
                         for (var substance of composition.substancesActives) {
-                            session.send(`${substance.denominationSubstance} with a dosage of ${substance.dosageSubstance}`);
+                            let translatedSubstance = yield cognitive_translator_1.default.getTranslationAsync(substance.denominationSubstance, 'fr', 'en');
+                            session.send(`${translatedSubstance} with a dosage of ${substance.dosageSubstance}`);
                         }
                     }
                 }
@@ -67,7 +73,7 @@ lib.dialog('composition', [
         }
         session.endDialog();
     })
-]).triggerAction({ matches: 'Intent.Medication.GetComposition' });
+]).triggerAction({ matches: 'Intent.Medications.GetInformation' });
 function medicationPrompt(session, search, next) {
     let medications = new Array();
     if (search && search.length > 0) {
