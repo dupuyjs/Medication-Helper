@@ -7,7 +7,7 @@ const storage = require("botbuilder-azure");
 // <<< --- DECLARE YOUR LIBRARIES HERE --- >>>
 let locationDialog = require('botbuilder-location');
 const greetings = require("./dialogs/greetings-dialog");
-const composition = require("./dialogs/drug-composition-dialog");
+const composition = require("./dialogs/medication-dialog");
 const places = require("./dialogs/findplace-dialog");
 // Loading environment variables
 const dotenv = require('dotenv').config();

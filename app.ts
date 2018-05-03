@@ -12,7 +12,7 @@ import translator from "./services/cognitive-translator";
 let locationDialog = require('botbuilder-location');
 
 import * as greetings from './dialogs/greetings-dialog';
-import * as composition from './dialogs/drug-composition-dialog';
+import * as composition from './dialogs/medication-dialog';
 import * as places from './dialogs/findplace-dialog';
 
 
