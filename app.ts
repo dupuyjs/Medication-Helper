@@ -2,6 +2,7 @@ import * as restify from 'restify';
 import * as builder from 'botbuilder';
 import { IConversationUpdate, IIdentity } from 'botbuilder';
 import * as storage from 'botbuilder-azure';
+import attachment from "./helpers/helper-attachment";
 
 // Services and helpers
 import openmedicament from "./services/api-openmedicaments";
@@ -14,6 +15,7 @@ let locationDialog = require('botbuilder-location');
 import * as greetings from './dialogs/greetings-dialog';
 import * as medication from './dialogs/medication-dialog';
 import * as places from './dialogs/findplace-dialog';
+import * as imagedetection from "./dialogs/imagedetection-dialog"
 
 
 // Loading environment variables
@@ -65,6 +67,7 @@ bot.library(locationDialog.createLibrary(process.env.BING_MAPS_API_KEY));
 bot.library(greetings.createLibrary());
 bot.library(medication.createLibrary());
 bot.library(places.createLibrary());
+bot.library(imagedetection.createLibrary());
 
 // Conversation Update - Send greetings to user when joining the conversation
 bot.on('conversationUpdate', (message: IConversationUpdate) => {
@@ -81,3 +84,16 @@ bot.on('conversationUpdate', (message: IConversationUpdate) => {
 const luis = process.env.COGNITIVE_LUIS_URL || '';
 let luisRecognizer = new builder.LuisRecognizer(luis);
 bot.recognizer(luisRecognizer);
+
+bot.recognizer({
+    recognize: (context: builder.IRecognizeContext, done: (err: any, result: builder.IIntentRecognizerResult) => void) => {
+        let intent: builder.IIntentRecognizerResult = { score: 0.0, intent: 'None' };
+
+        if (attachment.hasImageAttachment(context.message)) {
+            intent = { score: 1.0, intent: 'Intent.Upload.Image' };
+            done(null, intent);
+        } else {
+            done(null, intent);
+        }
+    }
+});

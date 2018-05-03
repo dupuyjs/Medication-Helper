@@ -3,12 +3,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const restify = require("restify");
 const builder = require("botbuilder");
 const storage = require("botbuilder-azure");
+const helper_attachment_1 = require("./helpers/helper-attachment");
 // Dialogs
 // <<< --- DECLARE YOUR LIBRARIES HERE --- >>>
 let locationDialog = require('botbuilder-location');
 const greetings = require("./dialogs/greetings-dialog");
 const medication = require("./dialogs/medication-dialog");
 const places = require("./dialogs/findplace-dialog");
+const imagedetection = require("./dialogs/imagedetection-dialog");
 // Loading environment variables
 const dotenv = require('dotenv').config();
 // Table storage
@@ -50,6 +52,7 @@ bot.library(locationDialog.createLibrary(process.env.BING_MAPS_API_KEY));
 bot.library(greetings.createLibrary());
 bot.library(medication.createLibrary());
 bot.library(places.createLibrary());
+bot.library(imagedetection.createLibrary());
 // Conversation Update - Send greetings to user when joining the conversation
 bot.on('conversationUpdate', (message) => {
     if (message.membersAdded) {
@@ -64,4 +67,16 @@ bot.on('conversationUpdate', (message) => {
 const luis = process.env.COGNITIVE_LUIS_URL || '';
 let luisRecognizer = new builder.LuisRecognizer(luis);
 bot.recognizer(luisRecognizer);
+bot.recognizer({
+    recognize: (context, done) => {
+        let intent = { score: 0.0, intent: 'None' };
+        if (helper_attachment_1.default.hasImageAttachment(context.message)) {
+            intent = { score: 1.0, intent: 'Intent.Upload.Image' };
+            done(null, intent);
+        }
+        else {
+            done(null, intent);
+        }
+    }
+});
 //# sourceMappingURL=app.js.map
