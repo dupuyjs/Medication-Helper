@@ -4,6 +4,7 @@ import { Medication, MedicationCode } from "../services/api-openmedicaments";
 import translator from "../services/cognitive-translator";
 import medicationcard from "../cards/medication-card"
 
+let turndownService = require('turndown');
 let lib = new builder.Library('medication');
 
 // Extends IEntity interface to support entity resolution.
@@ -77,7 +78,9 @@ lib.dialog('information', [
                     session.send(drug.denomination);
 
                     let translatedIndications = await translator.getTranslationAsync(drug.indicationsTherapeutiques, 'fr', 'en');
-                    if (translatedIndications) session.send(translatedIndications);
+                    let turndown = new turndownService();
+
+                    if (translatedIndications) session.send(turndown.turndown(translatedIndications));
 
                     for(var composition of drug.compositions) {
                         for(var substance of composition.substancesActives) {

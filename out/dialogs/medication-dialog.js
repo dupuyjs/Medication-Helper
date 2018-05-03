@@ -12,6 +12,7 @@ const builder = require("botbuilder");
 const api_openmedicaments_1 = require("../services/api-openmedicaments");
 const cognitive_translator_1 = require("../services/cognitive-translator");
 const medication_card_1 = require("../cards/medication-card");
+let turndownService = require('turndown');
 let lib = new builder.Library('medication');
 lib.dialog('information', [
     (session, args, next) => __awaiter(this, void 0, void 0, function* () {
@@ -61,8 +62,9 @@ lib.dialog('information', [
                     let drug = yield api_openmedicaments_1.default.getMedicationFromIdAsync(item.codeCIS);
                     session.send(drug.denomination);
                     let translatedIndications = yield cognitive_translator_1.default.getTranslationAsync(drug.indicationsTherapeutiques, 'fr', 'en');
+                    let turndown = new turndownService();
                     if (translatedIndications)
-                        session.send(translatedIndications);
+                        session.send(turndown.turndown(translatedIndications));
                     for (var composition of drug.compositions) {
                         for (var substance of composition.substancesActives) {
                             let translatedSubstance = yield cognitive_translator_1.default.getTranslationAsync(substance.denominationSubstance, 'fr', 'en');

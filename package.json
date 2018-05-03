@@ -25,6 +25,7 @@
     "dotenv": "^5.0.1",
     "node-fetch": "^2.1.2",
     "restify": "^7.1.1",
+    "turndown": "^4.0.2",
     "typescript": "^2.8.1",
     "xml-js": "^1.6.2"
   }
