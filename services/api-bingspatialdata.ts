@@ -10,13 +10,13 @@ export class BingSpatialDataService {
 
     /**
      * Get points of interest that are within a specified area (latitude, longitude)
-     * @method getSpatialDataFromAreaAsync
+     * @method getSpatialDataFromLatitudeLongitudeAsync
      * @param {string} latitude
      * @param {string} longitude
      * @param {EntityType} type
      * @returns {SpatialData}
      */
-    public async getSpatialDataFromAreaAsync(latitude: string, longitude: string, type: EntityType): Promise<SpatialData> {
+    public async getSpatialDataFromLatitudeLongitudeAsync(latitude: string, longitude: string, type: EntityType): Promise<SpatialData> {
 
         if (!latitude || !longitude) {
             throw new Error('query argument is empty or undefined')
@@ -24,6 +24,32 @@ export class BingSpatialDataService {
 
         let json = undefined
         let url = `${baseUrl}?spatialFilter=nearby(${latitude},${longitude},100)&$filter=EntityTypeID Eq ${type}&$format=json&$top=5&key=${process.env.BING_MAPS_API_KEY}`;
+
+        let response = await fetch(url)
+            .catch(error => console.error(error))
+
+        if (response) {
+            json = await response.json()
+        }
+
+        return json;
+    }
+
+        /**
+     * Get points of interest that are within a specified area (address)
+     * @method getSpatialDataFromAddressAsync
+     * @param {string} address
+     * @param {EntityType} type
+     * @returns {SpatialData}
+     */
+    public async getSpatialDataFromAddressAsync(address: string, type: EntityType): Promise<SpatialData> {
+
+        if (!address) {
+            throw new Error('query argument is empty or undefined')
+        }
+
+        let json = undefined
+        let url = `${baseUrl}?spatialFilter=nearby('${address}',100)&$filter=EntityTypeID Eq ${type}&$format=json&$top=5&key=${process.env.BING_MAPS_API_KEY}`;
 
         let response = await fetch(url)
             .catch(error => console.error(error))

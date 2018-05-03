@@ -17,19 +17,41 @@ let baseUrl = 'http://spatial.virtualearth.net/REST/v1/data/c2ae584bbccc4916a0ac
 class BingSpatialDataService {
     /**
      * Get points of interest that are within a specified area (latitude, longitude)
-     * @method getSpatialDataFromAreaAsync
+     * @method getSpatialDataFromLatitudeLongitudeAsync
      * @param {string} latitude
      * @param {string} longitude
      * @param {EntityType} type
      * @returns {SpatialData}
      */
-    getSpatialDataFromAreaAsync(latitude, longitude, type) {
+    getSpatialDataFromLatitudeLongitudeAsync(latitude, longitude, type) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!latitude || !longitude) {
                 throw new Error('query argument is empty or undefined');
             }
             let json = undefined;
             let url = `${baseUrl}?spatialFilter=nearby(${latitude},${longitude},100)&$filter=EntityTypeID Eq ${type}&$format=json&$top=5&key=${process.env.BING_MAPS_API_KEY}`;
+            let response = yield node_fetch_1.default(url)
+                .catch(error => console.error(error));
+            if (response) {
+                json = yield response.json();
+            }
+            return json;
+        });
+    }
+    /**
+ * Get points of interest that are within a specified area (address)
+ * @method getSpatialDataFromAddressAsync
+ * @param {string} address
+ * @param {EntityType} type
+ * @returns {SpatialData}
+ */
+    getSpatialDataFromAddressAsync(address, type) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (!address) {
+                throw new Error('query argument is empty or undefined');
+            }
+            let json = undefined;
+            let url = `${baseUrl}?spatialFilter=nearby('${address}',100)&$filter=EntityTypeID Eq ${type}&$format=json&$top=5&key=${process.env.BING_MAPS_API_KEY}`;
             let response = yield node_fetch_1.default(url)
                 .catch(error => console.error(error));
             if (response) {
