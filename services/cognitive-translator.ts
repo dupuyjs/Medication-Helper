@@ -69,6 +69,60 @@ export class TranslatorService {
 
         return translation;
     }
+
+    /**
+     * Retrieves friendly names for the languages passed in as the parameter languageCode, 
+     * and localized using the passed locale language.
+     * @method getLanguageNameAsync
+     * @param {string} languageCode 
+     * @param {string} locale 
+     * @returns {string}
+     * A string representing the translated text. 
+     */
+    public async getLanguageNameAsync(languageCode: string, locale?: string): Promise<string | undefined> {
+
+        let code = encodeURIComponent(languageCode);
+        let culture = locale ? locale : 'en';
+
+        let translatorApiKey = process.env.COGNITIVE_TRANSLATOR_API_KEY;
+
+        // Check if environment variables are correct
+        if (translatorApiKey == undefined) {
+            console.log("Cognitive Services - Translation - Url or Api Key undefined.");
+            return undefined;
+        }
+
+        let query = `${baseUrl}/GetLanguageNames?locale=${culture}`;
+
+        let response = await fetch(query,
+            {
+                method: 'POST',
+                headers:
+                    {
+                        'Ocp-Apim-Subscription-Key': translatorApiKey,
+                        'Content-Type': 'text/xml'
+                    },
+                body:
+                    `<ArrayOfstring xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+                        <string>${languageCode}</string>
+                    </ArrayOfstring>`
+            });
+
+        if (response && response.status && response.status >= 200 && response.status <= 299) {
+            let text = await response.text();
+            if (!text) {
+                return undefined;
+            }
+
+            let jsonText = xmljs.xml2js(text, { compact: true, ignoreAttributes: true });
+
+            if (jsonText && jsonText.ArrayOfstring && jsonText.ArrayOfstring.string && jsonText.ArrayOfstring.string._text) {
+                return jsonText.ArrayOfstring.string._text;
+            }
+        }
+
+        return undefined;
+    }
 }
 
 let translatorService = new TranslatorService();
