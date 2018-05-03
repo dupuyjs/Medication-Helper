@@ -88,7 +88,7 @@ lib.dialog('findplace', [
         }
         return session.endDialog();
     })
-]).triggerAction({ matches: 'Intent.FindPlace' });
+]).triggerAction({ matches: 'Intent.Places.FindLocation' });
 /**
  * Format points of interest to a carousel message
  * @method formatCarouselMessage
