@@ -37,7 +37,6 @@ class TranslatorService {
             if (!text) {
                 throw new Error('text argument is empty or undefined');
             }
-            let translation = undefined;
             let encodedText = encodeURIComponent(text);
             let url = `${baseUrl}/Translate?text=${encodedText}`;
             if (from) {
@@ -53,16 +52,16 @@ class TranslatorService {
                 }
             })
                 .catch(error => console.error(error));
-            if (response) {
+            if (response && response.status && response.status >= 200 && response.status <= 299) {
                 let xmlcontent = yield response.text();
                 if (xmlcontent) {
                     let json = xmljs.xml2js(xmlcontent, { compact: true, ignoreAttributes: true });
                     if (json && json.string && json.string._text) {
-                        translation = json.string._text;
+                        return json.string._text;
                     }
                 }
             }
-            return translation;
+            return undefined;
         });
     }
     /**
@@ -70,21 +69,23 @@ class TranslatorService {
      * and localized using the passed locale language.
      * @method getLanguageNameAsync
      * @param {string} languageCode
+     * Required. A string representing the ISO 639-1 language code to retrieve the friendly names for.
      * @param {string} locale
+     * Optional. A string representing a combination of an ISO 639 two-letter lowercase culture code
+     * associated with a language and an ISO 3166 two-letter uppercase subculture code to localize the language names or a ISO 639 lowercase culture code by itself.
      * @returns {string}
      * A string representing the translated text.
      */
-    getLanguageNameAsync(languageCode, locale) {
+    getLanguageNameAsync(languageCode, locale = "en") {
         return __awaiter(this, void 0, void 0, function* () {
             let code = encodeURIComponent(languageCode);
-            let culture = locale ? locale : 'en';
             let translatorApiKey = process.env.COGNITIVE_TRANSLATOR_API_KEY;
             // Check if environment variables are correct
             if (translatorApiKey == undefined) {
                 console.log("Cognitive Services - Translation - Url or Api Key undefined.");
                 return undefined;
             }
-            let query = `${baseUrl}/GetLanguageNames?locale=${culture}`;
+            let query = `${baseUrl}/GetLanguageNames?locale=${locale}`;
             let response = yield node_fetch_1.default(query, {
                 method: 'POST',
                 headers: {
@@ -94,15 +95,15 @@ class TranslatorService {
                 body: `<ArrayOfstring xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
                         <string>${languageCode}</string>
                     </ArrayOfstring>`
-            });
+            })
+                .catch(error => console.error(error));
             if (response && response.status && response.status >= 200 && response.status <= 299) {
-                let text = yield response.text();
-                if (!text) {
-                    return undefined;
-                }
-                let jsonText = xmljs.xml2js(text, { compact: true, ignoreAttributes: true });
-                if (jsonText && jsonText.ArrayOfstring && jsonText.ArrayOfstring.string && jsonText.ArrayOfstring.string._text) {
-                    return jsonText.ArrayOfstring.string._text;
+                let xmlcontent = yield response.text();
+                if (xmlcontent) {
+                    let json = xmljs.xml2js(xmlcontent, { compact: true, ignoreAttributes: true });
+                    if (json && json.ArrayOfstring && json.ArrayOfstring.string && json.ArrayOfstring.string._text) {
+                        return json.ArrayOfstring.string._text;
+                    }
                 }
             }
             return undefined;

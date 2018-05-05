@@ -33,7 +33,6 @@ export class TranslatorService {
             throw new Error('text argument is empty or undefined')
         }
 
-        let translation = undefined
         let encodedText = encodeURIComponent(text);
         let url = `${baseUrl}/Translate?text=${encodedText}`;
 
@@ -53,21 +52,21 @@ export class TranslatorService {
                         'Ocp-Apim-Subscription-Key': translatorApiKey,
                     }
             })
-            .catch(error => console.error(error))
+            .catch(error => console.error(error));
 
-        if (response) {
+        if (response && response.status && response.status >= 200 && response.status <= 299) {
             let xmlcontent = await response.text()
 
             if (xmlcontent) {
                 let json = xmljs.xml2js(xmlcontent, { compact: true, ignoreAttributes: true });
 
                 if (json && json.string && json.string._text) {
-                    translation = json.string._text;
+                    return json.string._text;
                 }
             }
         }
 
-        return translation;
+        return undefined;
     }
 
     /**
@@ -75,14 +74,16 @@ export class TranslatorService {
      * and localized using the passed locale language.
      * @method getLanguageNameAsync
      * @param {string} languageCode 
-     * @param {string} locale 
+     * Required. A string representing the ISO 639-1 language code to retrieve the friendly names for.
+     * @param {string} locale
+     * Optional. A string representing a combination of an ISO 639 two-letter lowercase culture code 
+     * associated with a language and an ISO 3166 two-letter uppercase subculture code to localize the language names or a ISO 639 lowercase culture code by itself.
      * @returns {string}
      * A string representing the translated text. 
      */
-    public async getLanguageNameAsync(languageCode: string, locale?: string): Promise<string | undefined> {
+    public async getLanguageNameAsync(languageCode: string, locale: string = "en"): Promise<string | undefined> {
 
         let code = encodeURIComponent(languageCode);
-        let culture = locale ? locale : 'en';
 
         let translatorApiKey = process.env.COGNITIVE_TRANSLATOR_API_KEY;
 
@@ -92,7 +93,7 @@ export class TranslatorService {
             return undefined;
         }
 
-        let query = `${baseUrl}/GetLanguageNames?locale=${culture}`;
+        let query = `${baseUrl}/GetLanguageNames?locale=${locale}`;
 
         let response = await fetch(query,
             {
@@ -106,18 +107,18 @@ export class TranslatorService {
                     `<ArrayOfstring xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
                         <string>${languageCode}</string>
                     </ArrayOfstring>`
-            });
+            })
+            .catch(error => console.error(error));
 
         if (response && response.status && response.status >= 200 && response.status <= 299) {
-            let text = await response.text();
-            if (!text) {
-                return undefined;
-            }
+            let xmlcontent = await response.text()
 
-            let jsonText = xmljs.xml2js(text, { compact: true, ignoreAttributes: true });
+            if (xmlcontent) {
+                let json = xmljs.xml2js(xmlcontent, { compact: true, ignoreAttributes: true });
 
-            if (jsonText && jsonText.ArrayOfstring && jsonText.ArrayOfstring.string && jsonText.ArrayOfstring.string._text) {
-                return jsonText.ArrayOfstring.string._text;
+                if (json && json.ArrayOfstring && json.ArrayOfstring.string && json.ArrayOfstring.string._text) {
+                    return json.ArrayOfstring.string._text;
+                }
             }
         }
 
