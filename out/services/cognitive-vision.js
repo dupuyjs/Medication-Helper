@@ -103,7 +103,10 @@ class VisionServices {
      * @returns {string}
      */
     getLanguageFromOcrResult(ocrResult) {
-        return ocrResult.language;
+        if (ocrResult && ocrResult.language) {
+            return ocrResult.language;
+        }
+        return undefined;
     }
     /**
      * Helper method to get an array which contains all words from an OCR result.

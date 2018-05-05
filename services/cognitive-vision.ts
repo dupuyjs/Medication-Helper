@@ -109,8 +109,13 @@ export class VisionServices {
      * Required. OcrResult instance.
      * @returns {string}
      */
-    public getLanguageFromOcrResult(ocrResult: OcrResult) : string {
-        return ocrResult.language;
+    public getLanguageFromOcrResult(ocrResult: OcrResult) : string|undefined {
+
+        if (ocrResult && ocrResult.language) {
+            return ocrResult.language;
+        }
+
+        return undefined;
     }
 
     /**
