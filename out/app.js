@@ -9,6 +9,7 @@ const helper_attachment_1 = require("./helpers/helper-attachment");
 let locationDialog = require('botbuilder-location');
 const greetings = require("./dialogs/greetings-dialog");
 const medication = require("./dialogs/medication-dialog");
+const prompt = require("./dialogs/medication-prompt");
 const places = require("./dialogs/findplace-dialog");
 const imagedetection = require("./dialogs/imagedetection-dialog");
 // Loading environment variables
@@ -34,9 +35,7 @@ let connector = new builder.ChatConnector({
 // Listen for messages from users 
 server.post('/api/messages', connector.listen());
 // Bot instantiation
-var bot = new builder.UniversalBot(connector, {
-    localizerSettings: { defaultLocale: "en" }
-});
+var bot = new builder.UniversalBot(connector);
 // Enable conversation states (storage in azure)
 if (enableAzureTableState) {
     console.log(`State will be stored in Azure Table Storage. Table Name: ${stateAzureTableName}, Storage Name: ${stateAzureStorageAccountName}`);
@@ -51,6 +50,7 @@ if (enableAzureTableState) {
 bot.library(locationDialog.createLibrary(process.env.BING_MAPS_API_KEY));
 bot.library(greetings.createLibrary());
 bot.library(medication.createLibrary());
+bot.library(prompt.createLibrary());
 bot.library(places.createLibrary());
 bot.library(imagedetection.createLibrary());
 // Conversation Update - Send greetings to user when joining the conversation

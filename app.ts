@@ -14,6 +14,7 @@ let locationDialog = require('botbuilder-location');
 
 import * as greetings from './dialogs/greetings-dialog';
 import * as medication from './dialogs/medication-dialog';
+import * as prompt from './dialogs/medication-prompt';
 import * as places from './dialogs/findplace-dialog';
 import * as imagedetection from "./dialogs/imagedetection-dialog"
 
@@ -47,8 +48,7 @@ let connector = new builder.ChatConnector({
 server.post('/api/messages', connector.listen());
 
 // Bot instantiation
-var bot = new builder.UniversalBot(connector, { 
-    localizerSettings: { defaultLocale: "en"}});
+var bot = new builder.UniversalBot(connector);
 
 // Enable conversation states (storage in azure)
 if (enableAzureTableState) {
@@ -66,6 +66,7 @@ if (enableAzureTableState) {
 bot.library(locationDialog.createLibrary(process.env.BING_MAPS_API_KEY));
 bot.library(greetings.createLibrary());
 bot.library(medication.createLibrary());
+bot.library(prompt.createLibrary());
 bot.library(places.createLibrary());
 bot.library(imagedetection.createLibrary());
 
