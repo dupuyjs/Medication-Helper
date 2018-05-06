@@ -31,7 +31,7 @@ class OpenMedicamentsService {
             let url = `${baseUrl}?query=${encodedQuery}`;
             let response = yield node_fetch_1.default(url)
                 .catch(error => console.error(error));
-            if (response) {
+            if (response && response.status && response.status >= 200 && response.status <= 299) {
                 json = yield response.json();
             }
             return json;
@@ -52,7 +52,7 @@ class OpenMedicamentsService {
             let url = `${baseUrl}/${id}`;
             let response = yield node_fetch_1.default(url)
                 .catch(error => console.error(error));
-            if (response) {
+            if (response && response.status && response.status >= 200 && response.status <= 299) {
                 json = yield response.json();
             }
             return json;

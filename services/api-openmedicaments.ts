@@ -20,14 +20,14 @@ export class OpenMedicamentsService {
             throw new Error('query argument is empty or undefined')
         }
 
-        let json = undefined
+        let json = undefined;
         let encodedQuery = encodeURIComponent(query);
         let url = `${baseUrl}?query=${encodedQuery}`;
 
         let response = await fetch(url)
             .catch(error => console.error(error))
 
-        if (response) {
+        if (response && response.status && response.status >= 200 && response.status <= 299) {
             json = await response.json()
         }
 
@@ -52,7 +52,7 @@ export class OpenMedicamentsService {
         let response = await fetch(url)
             .catch(error => console.error(error))
 
-        if (response) {
+        if (response && response.status && response.status >= 200 && response.status <= 299) {
             json = await response.json()
         }
 
