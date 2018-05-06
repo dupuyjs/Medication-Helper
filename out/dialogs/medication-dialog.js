@@ -9,74 +9,94 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const builder = require("botbuilder");
-const api_openmedicaments_1 = require("../services/api-openmedicaments");
 const cognitive_translator_1 = require("../services/cognitive-translator");
 const medication_card_1 = require("../cards/medication-card");
 let turndownService = require('turndown');
 let lib = new builder.Library('medication');
+/**
+ * information dialog - get information (composition, usage, ...) about a medication
+ */
 lib.dialog('information', [
     (session, args, next) => __awaiter(this, void 0, void 0, function* () {
-        let medication = undefined;
+        let data = undefined;
         // Get the Medication entity
         if (args && args.intent) {
             let intent = args.intent;
             let medicationEntity = builder.EntityRecognizer.findEntity(intent.entities, 'Medication.Name');
-            medication = session.dialogData.drug = {
+            let typeEntity = builder.EntityRecognizer.findEntity(intent.entities, 'Medication.Type');
+            data = session.dialogData.drug = {
                 name: medicationEntity ? medicationEntity.entity : undefined,
-                search: undefined
+                type: typeEntity ? typeEntity.resolution : undefined
             };
         }
-        if (medication && medication.name) {
+        if (data && data.name) {
             if (next)
-                next();
+                return next();
         }
         else {
-            builder.Prompts.text(session, "What is the medication name ?");
+            return builder.Prompts.text(session, "medication_prompt");
         }
     }),
     (session, results, next) => __awaiter(this, void 0, void 0, function* () {
-        let medication = session.dialogData.drug;
         if (results && results.response) {
-            medication = session.dialogData.drug = {
-                name: results.response,
-                search: undefined
-            };
+            session.dialogData.drug.name = results.response;
         }
-        if (medication && medication.name) {
-            try {
-                let listOfMedication = yield api_openmedicaments_1.default.getMedicationCodeFromQueryAsync(medication.name);
-                medicationPrompt(session, listOfMedication, next);
-            }
-            catch (error) {
-                console.error(error);
-            }
+        let data = session.dialogData.drug;
+        if (data && data.name) {
+            session.beginDialog('prompt:medication-prompt', data.name);
         }
     }),
     (session, results, next) => __awaiter(this, void 0, void 0, function* () {
-        let medication = session.dialogData.drug;
         // Formatting the response
-        if (results && results.response && results.response.entity && medication.search) {
-            let response = results.response.entity;
-            for (let item of medication.search) {
-                if (item.denomination == response) {
-                    let drug = yield api_openmedicaments_1.default.getMedicationFromIdAsync(item.codeCIS);
-                    session.send(drug.denomination);
-                    let translatedIndications = yield cognitive_translator_1.default.getTranslationAsync(drug.indicationsTherapeutiques, 'fr', 'en');
-                    let turndown = new turndownService();
-                    if (translatedIndications)
-                        session.send(turndown.turndown(translatedIndications));
-                    for (var composition of drug.compositions) {
-                        for (var substance of composition.substancesActives) {
-                            let translatedSubstance = yield cognitive_translator_1.default.getTranslationAsync(substance.denominationSubstance, 'fr', 'en');
-                            session.send(`${translatedSubstance} with a dosage of ${substance.dosageSubstance}`);
-                        }
+        if (results && results.response) {
+            let data = results.response;
+            if (data.source == 'fr') {
+                let drug = data.drug;
+                // Brand Name
+                session.send("**" + drug.denomination + "**");
+                // Indications and Usage
+                let indication_message = "Indications and Usage \n\n";
+                let translatedIndications = yield cognitive_translator_1.default.getTranslationAsync(drug.indicationsTherapeutiques, 'fr', 'en');
+                let turndown = new turndownService();
+                if (translatedIndications) {
+                    indication_message += turndown.turndown(translatedIndications);
+                }
+                session.send(indication_message);
+                // Composition
+                let composition_message = "Composition \n\n";
+                for (var composition of drug.compositions) {
+                    composition_message += `&nbsp;&nbsp;&nbsp;&nbsp;└ ${composition.designationElementPharmaceutique} \n\n`;
+                    for (var substance of composition.substancesActives) {
+                        let translatedSubstance = yield cognitive_translator_1.default.getTranslationAsync(substance.denominationSubstance, 'fr', 'en');
+                        composition_message += `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└ ${translatedSubstance} with a dosage of ${substance.dosageSubstance} \n\n`;
                     }
                 }
+                session.send(composition_message);
+            }
+            if (data.source == 'us') {
+                let drug = data.drug.results[0];
+                // Brand Name
+                session.send("**" + drug.openfda.brand_name[0] + "**");
+                // Indications and Usage
+                let indication_message = "Indications and Usage \n\n";
+                indication_message += drug.indications_and_usage;
+                session.send(indication_message);
+                // Composition
+                let composition_message = "Composition \n\n";
+                if (drug.active_ingredient) {
+                    for (let composition of drug.active_ingredient) {
+                        composition_message += `&nbsp;&nbsp;&nbsp;&nbsp;└ ${composition} \n\n`;
+                    }
+                }
+                session.send(composition_message);
             }
         }
-        session.endDialog();
+        return session.endDialog();
     })
 ]).triggerAction({ matches: 'Intent.Medications.GetInformation' });
+/**
+ * translate dialog - convert substances into a specific language
+ */
 lib.dialog('translate', [
     (session, args, next) => __awaiter(this, void 0, void 0, function* () {
         let data = undefined;
@@ -88,16 +108,15 @@ lib.dialog('translate', [
             data = session.dialogData.drug = {
                 name: medicationEntity ? medicationEntity.entity : undefined,
                 language: languageEntity ? languageEntity.entity : undefined,
-                languageCode: languageEntity ? languageEntity.resolution.values[0] : undefined,
-                search: undefined
+                languageCode: languageEntity ? languageEntity.resolution.values[0] : undefined
             };
         }
         if (data && data.name) {
             if (next)
-                next();
+                return next();
         }
         else {
-            builder.Prompts.text(session, "What is the medication name ?");
+            return builder.Prompts.text(session, "medication_prompt");
         }
     }),
     (session, results, next) => __awaiter(this, void 0, void 0, function* () {
@@ -106,60 +125,50 @@ lib.dialog('translate', [
         }
         let data = session.dialogData.drug;
         if (data && data.name) {
-            try {
-                let listOfMedication = yield api_openmedicaments_1.default.getMedicationCodeFromQueryAsync(data.name);
-                medicationPrompt(session, listOfMedication, next);
-            }
-            catch (error) {
-                console.error(error);
-            }
+            session.beginDialog('prompt:medication-prompt', data.name);
         }
     }),
     (session, results, next) => __awaiter(this, void 0, void 0, function* () {
         let data = session.dialogData.drug;
         // Formatting the response
-        if (results && results.response && results.response.entity && data.search) {
-            let response = results.response.entity;
-            for (let item of data.search) {
-                if (item.denomination == response) {
-                    let drug = yield api_openmedicaments_1.default.getMedicationFromIdAsync(item.codeCIS);
-                    session.send("This medicine contains the following active substances:");
-                    for (var composition of drug.compositions) {
-                        for (var substance of composition.substancesActives) {
-                            let translatedSubstance = yield cognitive_translator_1.default.getTranslationAsync(substance.denominationSubstance, 'fr', data.languageCode);
-                            if (translatedSubstance) {
-                                let card = medication_card_1.default.getMedicineCard(substance.denominationSubstance.toLowerCase(), translatedSubstance);
-                                let message = new builder.Message(session).addAttachment(card);
-                                session.send(message);
-                            }
+        if (results && results.response) {
+            let data = results.response;
+            if (data.source == 'fr') {
+                let drug = data.drug;
+                session.send("substances_message");
+                for (var composition of drug.compositions) {
+                    for (var substance of composition.substancesActives) {
+                        let translatedSubstance = yield cognitive_translator_1.default.getTranslationAsync(substance.denominationSubstance, 'fr', data.languageCode);
+                        if (translatedSubstance) {
+                            let card = medication_card_1.default.getMedicineCard(substance.denominationSubstance.toLowerCase(), translatedSubstance);
+                            let message = new builder.Message(session).addAttachment(card);
+                            session.send(message);
                         }
                     }
                 }
+            }
+            if (data.source == 'us') {
+                let drug = data.drug.results[0];
+                session.send("substances_message");
+                if (drug.active_ingredient) {
+                    for (let composition of drug.active_ingredient) {
+                    }
+                }
+                // for (var composition of drug.compositions) {
+                //     for (var substance of composition.substancesActives) {
+                //         let translatedSubstance = await translator.getTranslationAsync(substance.denominationSubstance, 'fr', data.languageCode);
+                //         if (translatedSubstance) {
+                //             let card = medicationcard.getMedicineCard(substance.denominationSubstance.toLowerCase(), translatedSubstance);
+                //             let message = new builder.Message(session).addAttachment(card);
+                //             session.send(message);
+                //         }
+                //     }
+                // }
             }
         }
         session.endDialog();
     })
 ]).triggerAction({ matches: 'Intent.Medications.Translate' });
-function medicationPrompt(session, search, next) {
-    let medications = new Array();
-    if (search && search.length > 0) {
-        // Limit the result to the first ten answers
-        if (search.length > 10) {
-            search = search.slice(0, 10);
-        }
-        // Save the current search in dialogData state
-        session.dialogData.drug.search = search;
-        for (let item of search) {
-            medications.push(item.denomination);
-        }
-        builder.Prompts.choice(session, "Please confirm the name of the medication:", medications);
-    }
-    else {
-        session.send("Sorry. I didn't find any matching medication.");
-        if (next)
-            next();
-    }
-}
 function createLibrary() {
     return lib.clone();
 }
