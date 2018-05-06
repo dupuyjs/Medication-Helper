@@ -1,0 +1,4 @@
+{
+    "medication_prompt": "What is the medication name ?",
+    "substances_message": "This medication contains the following active substances:"
+}

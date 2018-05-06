@@ -1,3 +1,7 @@
 {
-    "greetings_welcome" : ["How can I help you ?", "What can I do for you ?"]
+    "greetings_welcome" : ["How can I help you ?", "What can I do for you ?"],
+    "greetings_menu_title_findplace": "Find a medical location",
+    "greetings_menu_subtitletitle_findplace": "Do you need a pharmacy?",
+    "greetings_menu_title_medication": "All about medication",
+    "greetings_menu_subtitletitle_medication": "Find the right drug when you’re abroad."
 }

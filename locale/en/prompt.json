@@ -1,0 +1,4 @@
+{
+    "medication_prompt": "Please confirm the name of the medication:",
+    "notfound_message": "Sorry. I didn't find any matching medication."
+}
