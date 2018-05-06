@@ -3,9 +3,32 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const builder = require("botbuilder");
 let lib = new builder.Library('greetings');
 lib.dialog('start', (session, args) => {
-    session.send("greetings_welcome");
+    let cards = getCardsAttachments(session);
+    // Create reply with Carousel AttachmentLayout
+    var message = new builder.Message(session)
+        .text("greetings_welcome")
+        .attachmentLayout(builder.AttachmentLayout.carousel)
+        .attachments(cards);
+    session.send(message);
     session.endDialog(); // <---  DON'T FORGET TO END THE DIALOG
 });
+function getCardsAttachments(session) {
+    return [
+        new builder.HeroCard(session)
+            .title(session.localizer.gettext(session.preferredLocale(), 'greetings_menu_title_findplace', "greetings"))
+            .subtitle(session.localizer.gettext(session.preferredLocale(), 'greetings_menu_subtitletitle_findplace', "greetings"))
+            .buttons([
+            builder.CardAction.imBack(session, "Find a medical location", "Select")
+        ]),
+        new builder.HeroCard(session)
+            .title(session.localizer.gettext(session.preferredLocale(), 'greetings_menu_title_medication'), "greetings")
+            .subtitle(session.localizer.gettext(session.preferredLocale(), 'greetings_menu_subtitletitle_medication'), "greetings")
+            .buttons([
+            builder.CardAction.imBack(session, "I need details about a medication", "Select")
+        ])
+    ];
+}
+exports.getCardsAttachments = getCardsAttachments;
 function createLibrary() {
     return lib.clone();
 }
