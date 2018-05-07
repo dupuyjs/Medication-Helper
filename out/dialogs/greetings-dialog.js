@@ -4,6 +4,13 @@ const builder = require("botbuilder");
 let lib = new builder.Library('greetings');
 lib.dialog('start', (session, args) => {
     let cards = getCardsAttachments(session);
+    if (args === 'default') {
+        session.send("greetings_lost");
+    }
+    else {
+        session.send("greetings_details_firstline");
+        session.send("greetings_details_secondline");
+    }
     // Create reply with Carousel AttachmentLayout
     var message = new builder.Message(session)
         .text("greetings_welcome")
