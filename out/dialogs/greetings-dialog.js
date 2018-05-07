@@ -32,6 +32,12 @@ function getCardsAttachments(session) {
             .subtitle(session.localizer.gettext(session.preferredLocale(), 'greetings_menu_subtitletitle_medication'), "greetings")
             .buttons([
             builder.CardAction.imBack(session, "I need details about a medication", "Select")
+        ]),
+        new builder.HeroCard(session)
+            .title(session.localizer.gettext(session.preferredLocale(), 'greetings_menu_title_translation'), "greetings")
+            .subtitle(session.localizer.gettext(session.preferredLocale(), 'greetings_menu_subtitletitle_translation'), "greetings")
+            .buttons([
+            builder.CardAction.imBack(session, "Translate a medication", "Select")
         ])
     ];
 }

@@ -29,9 +29,6 @@ export function getCardsAttachments(session: builder.Session) {
         new builder.HeroCard(session)
             .title(session.localizer.gettext(session.preferredLocale(), 'greetings_menu_title_findplace', "greetings"))
             .subtitle(session.localizer.gettext(session.preferredLocale(), 'greetings_menu_subtitletitle_findplace', "greetings"))
-            // .images([
-            //     builder.CardImage.create(session, `${SiteUrl.get()}/assets/05.jpg`)
-            // ])
             .buttons([
                 builder.CardAction.imBack(session, "Find a medical location", "Select")
             ]),
@@ -39,11 +36,15 @@ export function getCardsAttachments(session: builder.Session) {
         new builder.HeroCard(session)
             .title(session.localizer.gettext(session.preferredLocale(), 'greetings_menu_title_medication'), "greetings")
             .subtitle(session.localizer.gettext(session.preferredLocale(), 'greetings_menu_subtitletitle_medication'), "greetings")
-            // .images([
-            //     builder.CardImage.create(session, `${SiteUrl.get()}/assets/09.jpg`)
-            // ])
             .buttons([
                 builder.CardAction.imBack(session, "I need details about a medication", "Select")
+            ]),
+
+        new builder.HeroCard(session)
+            .title(session.localizer.gettext(session.preferredLocale(), 'greetings_menu_title_translation'), "greetings")
+            .subtitle(session.localizer.gettext(session.preferredLocale(), 'greetings_menu_subtitletitle_translation'), "greetings")
+            .buttons([
+                builder.CardAction.imBack(session, "Translate a medication", "Select")
             ])
     ];
 }
