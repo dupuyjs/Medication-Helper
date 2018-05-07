@@ -2,9 +2,12 @@ import * as builder from 'botbuilder';
 import openmedicament, { Medication, MedicationCode } from "../services/api-openmedicaments";
 import openfda, { Result } from "../services/api-openfda";
 import translator from "../services/cognitive-translator";
-import medicationcard from "../cards/medication-card"
+import medicationcard from "../cards/medication-card";
+import countrydata from '../helpers/helper-countrydata';
 
 let turndownService = require('turndown');
+let languages = require('country-data').languages;
+
 let lib = new builder.Library('medication');
 
 // Extends IEntity interface to support entity resolution.
@@ -19,12 +22,15 @@ interface IInformationStoredData {
 
 interface ITranslateStoredData {
     name: string
-    language: string
-    languageCode: string
+    language?: string
+    languageCode?: string
+    country?: string,
+    countryCode?: string,
+    drugdetails?: any
 }
 
 /**
- * information dialog - get information (composition, usage, ...) about a medication
+ * Information Dialog - Get Information (composition, usage, ...) about a medication
  */
 lib.dialog('information', [
     async (session: builder.Session, args: any, next?: (results?: builder.IDialogResult<any>) => void) => {
@@ -46,6 +52,7 @@ lib.dialog('information', [
             if (next) return next();
         }
         else {
+            session.send("drugs_help_tip_image");
             return builder.Prompts.text(session, "medication_prompt")
         }
     },
@@ -58,7 +65,7 @@ lib.dialog('information', [
         let data: IInformationStoredData = session.dialogData.drug;
 
         if (data && data.name) {
-            session.beginDialog('prompt:medication-prompt', data.name);
+            return session.beginDialog('medication-prompt:prompt', data.name);
         }
     },
     async (session: builder.Session, results: any, next?: (results?: builder.IDialogResult<any>) => void) => {
@@ -121,22 +128,34 @@ lib.dialog('information', [
 ]).triggerAction({ matches: 'Intent.Medications.GetInformation' });
 
 /**
- * translate dialog - convert substances into a specific language
+ * Translate Dialog - Convert substances into a specific language
  */
 lib.dialog('translate', [
     async (session: builder.Session, args: any, next?: (results?: builder.IDialogResult<any>) => void) => {
         let data: ITranslateStoredData | undefined = undefined;
 
-        // Get the Medication entity
+        // Get Medication.Name, Language and Country entities
         if (args && args.intent) {
             let intent = args.intent;
             let medicationEntity: IEntityEx = builder.EntityRecognizer.findEntity(intent.entities, 'Medication.Name') as IEntityEx;
             let languageEntity: IEntityEx = builder.EntityRecognizer.findEntity(intent.entities, 'Language') as IEntityEx;
+            let countryEntity: IEntityEx = builder.EntityRecognizer.findEntity(intent.entities, 'Country') as IEntityEx;
 
             data = session.dialogData.drug = {
                 name: medicationEntity ? medicationEntity.entity : undefined,
                 language: languageEntity ? languageEntity.entity : undefined,
-                languageCode: languageEntity ? languageEntity.resolution.values[0] : undefined
+                languageCode: languageEntity ? languageEntity.resolution.values[0] : undefined,
+                country: countryEntity ? countryEntity.entity : undefined,
+                countryCode: undefined
+            }
+
+            // If we get a country, need to obtain the associated country code
+            if (data.country) {
+                let search = countrydata.getCountryByName(data.country);
+
+                if (search) {
+                    session.dialogData.drug.countryCode = search.alpha2;
+                }
             }
         }
 
@@ -144,6 +163,7 @@ lib.dialog('translate', [
             if (next) return next();
         }
         else {
+            // Prompt for a medication name
             return builder.Prompts.text(session, "medication_prompt")
         }
     },
@@ -153,62 +173,103 @@ lib.dialog('translate', [
             session.dialogData.drug.name = results.response;
         }
 
-        let data: IInformationStoredData = session.dialogData.drug;
+        let data: ITranslateStoredData = session.dialogData.drug;
 
         if (data && data.name) {
-            session.beginDialog('prompt:medication-prompt', data.name);
+            // Prompt to validate the medication name (based on data source)
+            return session.beginDialog('medication-prompt:prompt', data.name);
         }
     },
     async (session: builder.Session, results: any, next?: (results?: builder.IDialogResult<any>) => void) => {
+
+        if (results && results.response) {
+            session.dialogData.drug.drugdetails = results.response;
+        }
+
         let data: ITranslateStoredData = session.dialogData.drug;
 
-        // Formatting the response
+        if (!data.language && !data.country) {
+            // Prompt for a country
+            return session.beginDialog("country-prompt:prompt");
+        } else {
+            if (next) return next();
+        }
+    },
+    async (session: builder.Session, results: any, next?: (results?: builder.IDialogResult<any>) => void) => {
+
         if (results && results.response) {
-            let data = results.response;
+            session.dialogData.drug.country = results.response.country;
+            session.dialogData.drug.countryCode = results.response.countryCode;
+        }
 
-            if (data.source == 'fr') {
-                let drug: Medication = data.drug;
+        let data: ITranslateStoredData = session.dialogData.drug;
 
-                session.send("substances_message");
-
-                for (var composition of drug.compositions) {
-                    for (var substance of composition.substancesActives) {
-                        let translatedSubstance = await translator.getTranslationAsync(substance.denominationSubstance, 'fr', data.languageCode);
-
-                        if (translatedSubstance) {
-                            let card = medicationcard.getMedicineCard(substance.denominationSubstance.toLowerCase(), translatedSubstance);
-
-                            let message = new builder.Message(session).addAttachment(card);
-                            session.send(message);
-                        }
-                    }
+        // Ensure we have a languageCode
+        let languageCode = undefined;
+        if (data.languageCode) {
+            languageCode = data.languageCode;
+        }
+        else if (data.countryCode) {
+            let searchCountry = countrydata.getCountryByCountryCode(data.countryCode);
+            if (searchCountry) {
+                let language = languages[searchCountry.languages[0]];
+                if (language) {
+                    languageCode = language.alpha2;
                 }
-            }
-
-            if (data.source == 'us') {
-                let drug: Result = data.drug.results[0];
-
-                session.send("substances_message");
-
-                if (drug.active_ingredient) {
-                    for (let composition of drug.active_ingredient) {
-                        
-                    }
-                }
-                // for (var composition of drug.compositions) {
-                //     for (var substance of composition.substancesActives) {
-                //         let translatedSubstance = await translator.getTranslationAsync(substance.denominationSubstance, 'fr', data.languageCode);
-
-                //         if (translatedSubstance) {
-                //             let card = medicationcard.getMedicineCard(substance.denominationSubstance.toLowerCase(), translatedSubstance);
-
-                //             let message = new builder.Message(session).addAttachment(card);
-                //             session.send(message);
-                //         }
-                //     }
-                // }
             }
         }
+
+        // Formatting the response
+        if (data.drugdetails.source == 'fr') {
+            let drug: Medication = data.drugdetails.drug;
+
+            session.send("substances_message");
+
+            for (var composition of drug.compositions) {
+                for (var substance of composition.substancesActives) {
+                    let translatedSubstance = await translator.getTranslationAsync(substance.denominationSubstance, 'fr', languageCode);
+
+                    if (translatedSubstance) {
+                        let card = medicationcard.getMedicineCard(substance.denominationSubstance.toLowerCase(), translatedSubstance);
+
+                        let message = new builder.Message(session).addAttachment(card);
+                        session.send(message);
+                    }
+                }
+            }
+
+            if (drug.indicationsTherapeutiques) {
+                let translatedIndications = await translator.getTranslationAsync(drug.indicationsTherapeutiques, 'fr', languageCode);
+                let turndown = new turndownService();
+                session.send(`Translated indications:\n\n` + turndown.turndown(translatedIndications));
+            }
+        }
+
+        if (data.drugdetails.source == 'us') {
+            let drug: Result = data.drugdetails.drug.results[0];
+
+            session.send("substances_message");
+
+            if (drug.openfda) {
+                for (let substance of drug.openfda.substance_name) {
+                    let translatedSubstance = await translator.getTranslationAsync(substance, 'en', languageCode);
+
+                    if (translatedSubstance) {
+                        let card = medicationcard.getMedicineCard(substance.toLowerCase(), translatedSubstance);
+
+                        let message = new builder.Message(session).addAttachment(card);
+                        session.send(message);
+                    }
+                }
+            }
+
+            if (drug.purpose) {
+                let translatedIndications = await translator.getTranslationAsync(drug.purpose[0], 'en', languageCode);
+                session.send(`Translated indications:\n\n` + translatedIndications);
+            }
+        }
+
+        session.send("pharmacist_message");
 
         session.endDialog();
     }
