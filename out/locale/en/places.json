@@ -1,0 +1,6 @@
+{
+    "choice_prompt" : "What type of health location ?",
+    "location_prompt" : "Where are you located ?",
+    "notfound_message" : "Oups. No item found. It seems I cannot help you at the moment :(.",
+    "foundplaces_message" : "We found the following places for you."
+}

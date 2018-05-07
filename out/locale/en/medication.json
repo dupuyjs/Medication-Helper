@@ -1,0 +1,6 @@
+{
+    "medication_prompt": "What is the medication name ?",
+    "substances_message": "This medication contains the following active substances:",
+    "drugs_help_tip_image": "You can even send me a photo of a foreign medicine box and I’ll tell you what it is!",
+    "pharmacist_message": "You can show to a pharmacist these details to assist you."
+}
