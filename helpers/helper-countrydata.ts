@@ -37,7 +37,7 @@ class CountryDataHelper {
         { code: "sk", name: "Slovak" }
     ];
 
-    public getCountryByName(country: string) {
+    public getCountryByName(country: string) : any {
         let search = undefined;
 
         countries.all.forEach((element: any) => {
@@ -51,7 +51,7 @@ class CountryDataHelper {
         return search;
     }
 
-    public getCountryByCountryCode(countryCode: string) {
+    public getCountryByCountryCode(countryCode: string) : any {
         let search = undefined;
 
         countries.all.forEach((element: any) => {
@@ -65,7 +65,7 @@ class CountryDataHelper {
         return search;
     }
 
-    public getVisionLanguageByName(language: string) {
+    public getVisionLanguageByName(language: string) : Array<Language> {
         let search = new Array<Language>();
 
         this.visionSupportedLanguages.forEach((element) => {
@@ -77,7 +77,7 @@ class CountryDataHelper {
         return search;
     }
 
-    public getLanguageByName(language: string) {
+    public getLanguageByName(language: string) : any {
         let search = undefined;
 
         languages.all.forEach((element: any) => {
