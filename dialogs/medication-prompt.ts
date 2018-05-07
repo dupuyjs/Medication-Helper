@@ -2,7 +2,7 @@ import * as builder from 'botbuilder';
 import openmedicament from "../services/api-openmedicaments";
 import openfda from "../services/api-openfda";
 
-let lib = new builder.Library('prompt');
+let lib = new builder.Library('medication-prompt');
 
 interface ISearchStoredData {
     source: string
@@ -21,7 +21,7 @@ const MAX_RESULTS = 10;
 /**
  * medication-prompt dialog - search into openfda and openmedicament data source
  */
-lib.dialog('medication-prompt', [
+lib.dialog('prompt', [
     async (session: builder.Session, args: any, next?: (results?: builder.IDialogResult<any>) => void) => {
 
         let query = args;

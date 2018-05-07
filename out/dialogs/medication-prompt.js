@@ -11,13 +11,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const builder = require("botbuilder");
 const api_openmedicaments_1 = require("../services/api-openmedicaments");
 const api_openfda_1 = require("../services/api-openfda");
-let lib = new builder.Library('prompt');
+let lib = new builder.Library('medication-prompt');
 ;
 const MAX_RESULTS = 10;
 /**
  * medication-prompt dialog - search into openfda and openmedicament data source
  */
-lib.dialog('medication-prompt', [
+lib.dialog('prompt', [
     (session, args, next) => __awaiter(this, void 0, void 0, function* () {
         let query = args;
         let medications = new Array();
