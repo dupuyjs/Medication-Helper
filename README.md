@@ -17,9 +17,7 @@ Run `npm install` in the `Medication-Helper` directory.
 
 As this bot uses a number of services, you will need to create applications and generate keys for each one. The following instructions are intended to guide you on how to do this.
 
-#### Service: Language Understanding Intelligence Service (LUIS)
-
-To register and train a LUIS Application, go to https://www.luis.ai/applications. After logging in, click `New App` and follow the directions. When directed to the dashboard, go to Settings, and click `Import Version`. From the Upload File dialog, select the `luis.json` file under the `Medication-Helper/data` directory. After the file is uploaded, click the `Set as active version` button under the `Actions` column. Click on `Train & Test` on the Left Column and click `Train Application`. It may take a few minutes to finish. Once done, you can test your LUIS model by typing out an utterance. Try 'find a location', for example. Finally, click on `Publish App`, assign a key, and click `Publish`. You will be given an `Endpoint url`. Copy this URL and add it as an environment variable.
+You can add an `.env` file in the `Medication-Helper` folder and copy the following content. You need to update the subscriptions key (and additionnal parameters) for each service.
 
 ``` text
 #.env file 
@@ -42,3 +40,8 @@ COGNITIVE_CUSTOM_VISION_API_URL = https://southcentralus.api.cognitive.microsoft
 BING_MAPS_API_KEY = {YourSubscriptionKey}
 
 ```
+
+#### Service: Language Understanding Intelligence Service (LUIS)
+
+To register and train a LUIS Application, go to https://www.luis.ai/applications. After logging in, click `Import New App` and follow the directions. From the Upload File dialog, select the `luis.json` file under the `Medication-Helper/data` directory. When directed to the dashboard, click on `Train`. It may take a few minutes to finish. Once done, you can test your LUIS model by typing out an utterance on the `Test` pannel. Try 'find a pharmacy in Paris', for instance. Finally, click on `Publish App`, assign a key, and click `Publish`. You will be given an `Endpoint url`. Copy this URL and add it as an environment variable (or in the .env file).
+

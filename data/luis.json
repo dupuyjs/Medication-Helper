@@ -1,0 +1,2608 @@
+{
+  "luis_schema_version": "3.0.0",
+  "versionId": "0.1",
+  "name": "Medication",
+  "desc": "",
+  "culture": "en-us",
+  "intents": [
+    {
+      "name": "Intent.Medications.GetInformation"
+    },
+    {
+      "name": "Intent.Medications.Translate"
+    },
+    {
+      "name": "Intent.Places.FindLocation"
+    },
+    {
+      "name": "None"
+    }
+  ],
+  "entities": [
+    {
+      "name": "Medication.Name",
+      "roles": []
+    },
+    {
+      "name": "Place.Location",
+      "roles": []
+    }
+  ],
+  "composites": [],
+  "closedLists": [
+    {
+      "name": "Country",
+      "subLists": [
+        {
+          "canonicalForm": "Andorra",
+          "list": [
+            "Andorra"
+          ]
+        },
+        {
+          "canonicalForm": "United Arab Emirates",
+          "list": [
+            "United Arab Emirates"
+          ]
+        },
+        {
+          "canonicalForm": "Afghanistan",
+          "list": [
+            "Afghanistan"
+          ]
+        },
+        {
+          "canonicalForm": "Antigua And Barbuda",
+          "list": [
+            "Antigua And Barbuda"
+          ]
+        },
+        {
+          "canonicalForm": "Anguilla",
+          "list": [
+            "Anguilla"
+          ]
+        },
+        {
+          "canonicalForm": "Albania",
+          "list": [
+            "Albania"
+          ]
+        },
+        {
+          "canonicalForm": "Armenia",
+          "list": [
+            "Armenia"
+          ]
+        },
+        {
+          "canonicalForm": "Angola",
+          "list": [
+            "Angola"
+          ]
+        },
+        {
+          "canonicalForm": "Antarctica",
+          "list": [
+            "Antarctica"
+          ]
+        },
+        {
+          "canonicalForm": "Argentina",
+          "list": [
+            "Argentina"
+          ]
+        },
+        {
+          "canonicalForm": "American Samoa",
+          "list": [
+            "American Samoa"
+          ]
+        },
+        {
+          "canonicalForm": "Austria",
+          "list": [
+            "Austria"
+          ]
+        },
+        {
+          "canonicalForm": "Australia",
+          "list": [
+            "Australia"
+          ]
+        },
+        {
+          "canonicalForm": "Aruba",
+          "list": [
+            "Aruba"
+          ]
+        },
+        {
+          "canonicalForm": "�land Islands",
+          "list": [
+            "�land Islands"
+          ]
+        },
+        {
+          "canonicalForm": "Azerbaijan",
+          "list": [
+            "Azerbaijan"
+          ]
+        },
+        {
+          "canonicalForm": "Bosnia & Herzegovina",
+          "list": [
+            "Bosnia & Herzegovina",
+            "Bosnia",
+            "Herzegovina"
+          ]
+        },
+        {
+          "canonicalForm": "Barbados",
+          "list": [
+            "Barbados"
+          ]
+        },
+        {
+          "canonicalForm": "Bangladesh",
+          "list": [
+            "Bangladesh"
+          ]
+        },
+        {
+          "canonicalForm": "Belgium",
+          "list": [
+            "Belgium"
+          ]
+        },
+        {
+          "canonicalForm": "Burkina Faso",
+          "list": [
+            "Burkina Faso"
+          ]
+        },
+        {
+          "canonicalForm": "Bulgaria",
+          "list": [
+            "Bulgaria"
+          ]
+        },
+        {
+          "canonicalForm": "Bahrain",
+          "list": [
+            "Bahrain"
+          ]
+        },
+        {
+          "canonicalForm": "Burundi",
+          "list": [
+            "Burundi"
+          ]
+        },
+        {
+          "canonicalForm": "Benin",
+          "list": [
+            "Benin"
+          ]
+        },
+        {
+          "canonicalForm": "Saint Barth�lemy",
+          "list": [
+            "Saint Barth�lemy"
+          ]
+        },
+        {
+          "canonicalForm": "Bermuda",
+          "list": [
+            "Bermuda"
+          ]
+        },
+        {
+          "canonicalForm": "Brunei Darussalam",
+          "list": [
+            "Brunei Darussalam"
+          ]
+        },
+        {
+          "canonicalForm": "Bolivia, Plurinational State Of",
+          "list": [
+            "Bolivia, Plurinational State Of",
+            "Bolivia"
+          ]
+        },
+        {
+          "canonicalForm": "Bonaire, Saint Eustatius And Saba",
+          "list": [
+            "Bonaire, Saint Eustatius And Saba",
+            "Bonaire"
+          ]
+        },
+        {
+          "canonicalForm": "Brazil",
+          "list": [
+            "Brazil"
+          ]
+        },
+        {
+          "canonicalForm": "Bahamas",
+          "list": [
+            "Bahamas"
+          ]
+        },
+        {
+          "canonicalForm": "Bhutan",
+          "list": [
+            "Bhutan"
+          ]
+        },
+        {
+          "canonicalForm": "Bouvet Island",
+          "list": [
+            "Bouvet Island",
+            "Bouvet"
+          ]
+        },
+        {
+          "canonicalForm": "Botswana",
+          "list": [
+            "Botswana"
+          ]
+        },
+        {
+          "canonicalForm": "Belarus",
+          "list": [
+            "Belarus"
+          ]
+        },
+        {
+          "canonicalForm": "Belize",
+          "list": [
+            "Belize"
+          ]
+        },
+        {
+          "canonicalForm": "Canada",
+          "list": [
+            "Canada"
+          ]
+        },
+        {
+          "canonicalForm": "Cocos (Keeling) Islands",
+          "list": [
+            "Cocos (Keeling) Islands"
+          ]
+        },
+        {
+          "canonicalForm": "Democratic Republic Of Congo",
+          "list": [
+            "Democratic Republic Of Congo",
+            "Congo"
+          ]
+        },
+        {
+          "canonicalForm": "Central African Republic",
+          "list": [
+            "Central African Republic"
+          ]
+        },
+        {
+          "canonicalForm": "Republic Of Congo",
+          "list": [
+            "Republic Of Congo"
+          ]
+        },
+        {
+          "canonicalForm": "Switzerland",
+          "list": [
+            "Switzerland"
+          ]
+        },
+        {
+          "canonicalForm": "C�te d'Ivoire",
+          "list": [
+            "C�te d'Ivoire",
+            "Cote d'Ivoire"
+          ]
+        },
+        {
+          "canonicalForm": "Cook Islands",
+          "list": [
+            "Cook Islands"
+          ]
+        },
+        {
+          "canonicalForm": "Chile",
+          "list": [
+            "Chile"
+          ]
+        },
+        {
+          "canonicalForm": "Cameroon",
+          "list": [
+            "Cameroon"
+          ]
+        },
+        {
+          "canonicalForm": "China",
+          "list": [
+            "China"
+          ]
+        },
+        {
+          "canonicalForm": "Colombia",
+          "list": [
+            "Colombia"
+          ]
+        },
+        {
+          "canonicalForm": "Costa Rica",
+          "list": [
+            "Costa Rica"
+          ]
+        },
+        {
+          "canonicalForm": "Cuba",
+          "list": [
+            "Cuba"
+          ]
+        },
+        {
+          "canonicalForm": "Cabo Verde",
+          "list": [
+            "Cabo Verde"
+          ]
+        },
+        {
+          "canonicalForm": "Curacao",
+          "list": [
+            "Curacao"
+          ]
+        },
+        {
+          "canonicalForm": "Christmas Island",
+          "list": [
+            "Christmas Island"
+          ]
+        },
+        {
+          "canonicalForm": "Cyprus",
+          "list": [
+            "Cyprus"
+          ]
+        },
+        {
+          "canonicalForm": "Czech Republic",
+          "list": [
+            "Czech Republic"
+          ]
+        },
+        {
+          "canonicalForm": "Germany",
+          "list": [
+            "Germany"
+          ]
+        },
+        {
+          "canonicalForm": "Djibouti",
+          "list": [
+            "Djibouti"
+          ]
+        },
+        {
+          "canonicalForm": "Denmark",
+          "list": [
+            "Denmark"
+          ]
+        },
+        {
+          "canonicalForm": "Dominica",
+          "list": [
+            "Dominica"
+          ]
+        },
+        {
+          "canonicalForm": "Dominican Republic",
+          "list": [
+            "Dominican Republic"
+          ]
+        },
+        {
+          "canonicalForm": "Algeria",
+          "list": [
+            "Algeria"
+          ]
+        },
+        {
+          "canonicalForm": "Ecuador",
+          "list": [
+            "Ecuador"
+          ]
+        },
+        {
+          "canonicalForm": "Estonia",
+          "list": [
+            "Estonia"
+          ]
+        },
+        {
+          "canonicalForm": "Egypt",
+          "list": [
+            "Egypt"
+          ]
+        },
+        {
+          "canonicalForm": "Western Sahara",
+          "list": [
+            "Western Sahara"
+          ]
+        },
+        {
+          "canonicalForm": "Eritrea",
+          "list": [
+            "Eritrea"
+          ]
+        },
+        {
+          "canonicalForm": "Spain",
+          "list": [
+            "Spain"
+          ]
+        },
+        {
+          "canonicalForm": "Ethiopia",
+          "list": [
+            "Ethiopia"
+          ]
+        },
+        {
+          "canonicalForm": "Finland",
+          "list": [
+            "Finland"
+          ]
+        },
+        {
+          "canonicalForm": "Fiji",
+          "list": [
+            "Fiji"
+          ]
+        },
+        {
+          "canonicalForm": "Falkland Islands",
+          "list": [
+            "Falkland Islands"
+          ]
+        },
+        {
+          "canonicalForm": "Micronesia, Federated States Of",
+          "list": [
+            "Micronesia, Federated States Of"
+          ]
+        },
+        {
+          "canonicalForm": "Faroe Islands",
+          "list": [
+            "Faroe Islands"
+          ]
+        },
+        {
+          "canonicalForm": "France",
+          "list": [
+            "France"
+          ]
+        },
+        {
+          "canonicalForm": "Gabon",
+          "list": [
+            "Gabon"
+          ]
+        },
+        {
+          "canonicalForm": "United Kingdom",
+          "list": [
+            "United Kingdom",
+            "UK",
+            "England"
+          ]
+        },
+        {
+          "canonicalForm": "Grenada",
+          "list": [
+            "Grenada"
+          ]
+        },
+        {
+          "canonicalForm": "Georgia",
+          "list": [
+            "Georgia"
+          ]
+        },
+        {
+          "canonicalForm": "French Guiana",
+          "list": [
+            "French Guiana"
+          ]
+        },
+        {
+          "canonicalForm": "Guernsey",
+          "list": [
+            "Guernsey"
+          ]
+        },
+        {
+          "canonicalForm": "Ghana",
+          "list": [
+            "Ghana"
+          ]
+        },
+        {
+          "canonicalForm": "Gibraltar",
+          "list": [
+            "Gibraltar"
+          ]
+        },
+        {
+          "canonicalForm": "Greenland",
+          "list": [
+            "Greenland"
+          ]
+        },
+        {
+          "canonicalForm": "Gambia",
+          "list": [
+            "Gambia"
+          ]
+        },
+        {
+          "canonicalForm": "Guinea",
+          "list": [
+            "Guinea"
+          ]
+        },
+        {
+          "canonicalForm": "Guadeloupe",
+          "list": [
+            "Guadeloupe"
+          ]
+        },
+        {
+          "canonicalForm": "Equatorial Guinea",
+          "list": [
+            "Equatorial Guinea"
+          ]
+        },
+        {
+          "canonicalForm": "Greece",
+          "list": [
+            "Greece"
+          ]
+        },
+        {
+          "canonicalForm": "South Georgia And The South Sandwich Islands",
+          "list": [
+            "South Georgia And The South Sandwich Islands"
+          ]
+        },
+        {
+          "canonicalForm": "Guatemala",
+          "list": [
+            "Guatemala"
+          ]
+        },
+        {
+          "canonicalForm": "Guam",
+          "list": [
+            "Guam"
+          ]
+        },
+        {
+          "canonicalForm": "Guinea-bissau",
+          "list": [
+            "Guinea-bissau"
+          ]
+        },
+        {
+          "canonicalForm": "Guyana",
+          "list": [
+            "Guyana"
+          ]
+        },
+        {
+          "canonicalForm": "Hong Kong",
+          "list": [
+            "Hong Kong"
+          ]
+        },
+        {
+          "canonicalForm": "Heard Island And McDonald Islands",
+          "list": [
+            "Heard Island And McDonald Islands"
+          ]
+        },
+        {
+          "canonicalForm": "Honduras",
+          "list": [
+            "Honduras"
+          ]
+        },
+        {
+          "canonicalForm": "Croatia",
+          "list": [
+            "Croatia"
+          ]
+        },
+        {
+          "canonicalForm": "Haiti",
+          "list": [
+            "Haiti"
+          ]
+        },
+        {
+          "canonicalForm": "Hungary",
+          "list": [
+            "Hungary"
+          ]
+        },
+        {
+          "canonicalForm": "Indonesia",
+          "list": [
+            "Indonesia"
+          ]
+        },
+        {
+          "canonicalForm": "Ireland",
+          "list": [
+            "Ireland"
+          ]
+        },
+        {
+          "canonicalForm": "Israel",
+          "list": [
+            "Israel"
+          ]
+        },
+        {
+          "canonicalForm": "Isle Of Man",
+          "list": [
+            "Isle Of Man"
+          ]
+        },
+        {
+          "canonicalForm": "India",
+          "list": [
+            "India"
+          ]
+        },
+        {
+          "canonicalForm": "British Indian Ocean Territory",
+          "list": [
+            "British Indian Ocean Territory"
+          ]
+        },
+        {
+          "canonicalForm": "Iraq",
+          "list": [
+            "Iraq"
+          ]
+        },
+        {
+          "canonicalForm": "Iran, Islamic Republic Of",
+          "list": [
+            "Iran, Islamic Republic Of",
+            "Iran"
+          ]
+        },
+        {
+          "canonicalForm": "Iceland",
+          "list": [
+            "Iceland"
+          ]
+        },
+        {
+          "canonicalForm": "Italy",
+          "list": [
+            "Italy"
+          ]
+        },
+        {
+          "canonicalForm": "Jersey",
+          "list": [
+            "Jersey"
+          ]
+        },
+        {
+          "canonicalForm": "Jamaica",
+          "list": [
+            "Jamaica"
+          ]
+        },
+        {
+          "canonicalForm": "Jordan",
+          "list": [
+            "Jordan"
+          ]
+        },
+        {
+          "canonicalForm": "Japan",
+          "list": [
+            "Japan"
+          ]
+        },
+        {
+          "canonicalForm": "Kenya",
+          "list": [
+            "Kenya"
+          ]
+        },
+        {
+          "canonicalForm": "Kyrgyzstan",
+          "list": [
+            "Kyrgyzstan"
+          ]
+        },
+        {
+          "canonicalForm": "Cambodia",
+          "list": [
+            "Cambodia"
+          ]
+        },
+        {
+          "canonicalForm": "Kiribati",
+          "list": [
+            "Kiribati"
+          ]
+        },
+        {
+          "canonicalForm": "Comoros",
+          "list": [
+            "Comoros"
+          ]
+        },
+        {
+          "canonicalForm": "Saint Kitts And Nevis",
+          "list": [
+            "Saint Kitts And Nevis"
+          ]
+        },
+        {
+          "canonicalForm": "Korea, Democratic People's Republic Of",
+          "list": [
+            "Korea, Democratic People's Republic Of"
+          ]
+        },
+        {
+          "canonicalForm": "Korea, Republic Of",
+          "list": [
+            "Korea, Republic Of"
+          ]
+        },
+        {
+          "canonicalForm": "Kuwait",
+          "list": [
+            "Kuwait"
+          ]
+        },
+        {
+          "canonicalForm": "Cayman Islands",
+          "list": [
+            "Cayman Islands"
+          ]
+        },
+        {
+          "canonicalForm": "Kazakhstan",
+          "list": [
+            "Kazakhstan"
+          ]
+        },
+        {
+          "canonicalForm": "Lao People's Democratic Republic",
+          "list": [
+            "Lao People's Democratic Republic"
+          ]
+        },
+        {
+          "canonicalForm": "Lebanon",
+          "list": [
+            "Lebanon"
+          ]
+        },
+        {
+          "canonicalForm": "Saint Lucia",
+          "list": [
+            "Saint Lucia"
+          ]
+        },
+        {
+          "canonicalForm": "Liechtenstein",
+          "list": [
+            "Liechtenstein"
+          ]
+        },
+        {
+          "canonicalForm": "Sri Lanka",
+          "list": [
+            "Sri Lanka"
+          ]
+        },
+        {
+          "canonicalForm": "Liberia",
+          "list": [
+            "Liberia"
+          ]
+        },
+        {
+          "canonicalForm": "Lesotho",
+          "list": [
+            "Lesotho"
+          ]
+        },
+        {
+          "canonicalForm": "Lithuania",
+          "list": [
+            "Lithuania"
+          ]
+        },
+        {
+          "canonicalForm": "Luxembourg",
+          "list": [
+            "Luxembourg"
+          ]
+        },
+        {
+          "canonicalForm": "Latvia",
+          "list": [
+            "Latvia"
+          ]
+        },
+        {
+          "canonicalForm": "Libya",
+          "list": [
+            "Libya"
+          ]
+        },
+        {
+          "canonicalForm": "Morocco",
+          "list": [
+            "Morocco"
+          ]
+        },
+        {
+          "canonicalForm": "Monaco",
+          "list": [
+            "Monaco"
+          ]
+        },
+        {
+          "canonicalForm": "Moldova",
+          "list": [
+            "Moldova"
+          ]
+        },
+        {
+          "canonicalForm": "Montenegro",
+          "list": [
+            "Montenegro"
+          ]
+        },
+        {
+          "canonicalForm": "Saint Martin",
+          "list": [
+            "Saint Martin"
+          ]
+        },
+        {
+          "canonicalForm": "Madagascar",
+          "list": [
+            "Madagascar"
+          ]
+        },
+        {
+          "canonicalForm": "Marshall Islands",
+          "list": [
+            "Marshall Islands"
+          ]
+        },
+        {
+          "canonicalForm": "Macedonia, The Former Yugoslav Republic Of",
+          "list": [
+            "Macedonia, The Former Yugoslav Republic Of"
+          ]
+        },
+        {
+          "canonicalForm": "Mali",
+          "list": [
+            "Mali"
+          ]
+        },
+        {
+          "canonicalForm": "Myanmar",
+          "list": [
+            "Myanmar"
+          ]
+        },
+        {
+          "canonicalForm": "Mongolia",
+          "list": [
+            "Mongolia"
+          ]
+        },
+        {
+          "canonicalForm": "Macao",
+          "list": [
+            "Macao"
+          ]
+        },
+        {
+          "canonicalForm": "Northern Mariana Islands",
+          "list": [
+            "Northern Mariana Islands"
+          ]
+        },
+        {
+          "canonicalForm": "Martinique",
+          "list": [
+            "Martinique"
+          ]
+        },
+        {
+          "canonicalForm": "Mauritania",
+          "list": [
+            "Mauritania"
+          ]
+        },
+        {
+          "canonicalForm": "Montserrat",
+          "list": [
+            "Montserrat"
+          ]
+        },
+        {
+          "canonicalForm": "Malta",
+          "list": [
+            "Malta"
+          ]
+        },
+        {
+          "canonicalForm": "Mauritius",
+          "list": [
+            "Mauritius"
+          ]
+        },
+        {
+          "canonicalForm": "Maldives",
+          "list": [
+            "Maldives"
+          ]
+        },
+        {
+          "canonicalForm": "Malawi",
+          "list": [
+            "Malawi"
+          ]
+        },
+        {
+          "canonicalForm": "Mexico",
+          "list": [
+            "Mexico"
+          ]
+        },
+        {
+          "canonicalForm": "Malaysia",
+          "list": [
+            "Malaysia"
+          ]
+        },
+        {
+          "canonicalForm": "Mozambique",
+          "list": [
+            "Mozambique"
+          ]
+        },
+        {
+          "canonicalForm": "Namibia",
+          "list": [
+            "Namibia"
+          ]
+        },
+        {
+          "canonicalForm": "New Caledonia",
+          "list": [
+            "New Caledonia"
+          ]
+        },
+        {
+          "canonicalForm": "Niger",
+          "list": [
+            "Niger"
+          ]
+        },
+        {
+          "canonicalForm": "Norfolk Island",
+          "list": [
+            "Norfolk Island"
+          ]
+        },
+        {
+          "canonicalForm": "Nigeria",
+          "list": [
+            "Nigeria"
+          ]
+        },
+        {
+          "canonicalForm": "Nicaragua",
+          "list": [
+            "Nicaragua"
+          ]
+        },
+        {
+          "canonicalForm": "Netherlands",
+          "list": [
+            "Netherlands"
+          ]
+        },
+        {
+          "canonicalForm": "Norway",
+          "list": [
+            "Norway"
+          ]
+        },
+        {
+          "canonicalForm": "Nepal",
+          "list": [
+            "Nepal"
+          ]
+        },
+        {
+          "canonicalForm": "Nauru",
+          "list": [
+            "Nauru"
+          ]
+        },
+        {
+          "canonicalForm": "Niue",
+          "list": [
+            "Niue"
+          ]
+        },
+        {
+          "canonicalForm": "New Zealand",
+          "list": [
+            "New Zealand"
+          ]
+        },
+        {
+          "canonicalForm": "Oman",
+          "list": [
+            "Oman"
+          ]
+        },
+        {
+          "canonicalForm": "Panama",
+          "list": [
+            "Panama"
+          ]
+        },
+        {
+          "canonicalForm": "Peru",
+          "list": [
+            "Peru"
+          ]
+        },
+        {
+          "canonicalForm": "French Polynesia",
+          "list": [
+            "French Polynesia"
+          ]
+        },
+        {
+          "canonicalForm": "Papua New Guinea",
+          "list": [
+            "Papua New Guinea"
+          ]
+        },
+        {
+          "canonicalForm": "Philippines",
+          "list": [
+            "Philippines"
+          ]
+        },
+        {
+          "canonicalForm": "Pakistan",
+          "list": [
+            "Pakistan"
+          ]
+        },
+        {
+          "canonicalForm": "Poland",
+          "list": [
+            "Poland"
+          ]
+        },
+        {
+          "canonicalForm": "Saint Pierre And Miquelon",
+          "list": [
+            "Saint Pierre And Miquelon"
+          ]
+        },
+        {
+          "canonicalForm": "Pitcairn",
+          "list": [
+            "Pitcairn"
+          ]
+        },
+        {
+          "canonicalForm": "Puerto Rico",
+          "list": [
+            "Puerto Rico"
+          ]
+        },
+        {
+          "canonicalForm": "Palestinian Territory, Occupied",
+          "list": [
+            "Palestinian Territory, Occupied"
+          ]
+        },
+        {
+          "canonicalForm": "Portugal",
+          "list": [
+            "Portugal"
+          ]
+        },
+        {
+          "canonicalForm": "Palau",
+          "list": [
+            "Palau"
+          ]
+        },
+        {
+          "canonicalForm": "Paraguay",
+          "list": [
+            "Paraguay"
+          ]
+        },
+        {
+          "canonicalForm": "Qatar",
+          "list": [
+            "Qatar"
+          ]
+        },
+        {
+          "canonicalForm": "Reunion",
+          "list": [
+            "Reunion"
+          ]
+        },
+        {
+          "canonicalForm": "Romania",
+          "list": [
+            "Romania"
+          ]
+        },
+        {
+          "canonicalForm": "Serbia",
+          "list": [
+            "Serbia"
+          ]
+        },
+        {
+          "canonicalForm": "Russian Federation",
+          "list": [
+            "Russian Federation",
+            "Russia"
+          ]
+        },
+        {
+          "canonicalForm": "Rwanda",
+          "list": [
+            "Rwanda"
+          ]
+        },
+        {
+          "canonicalForm": "Saudi Arabia",
+          "list": [
+            "Saudi Arabia"
+          ]
+        },
+        {
+          "canonicalForm": "Solomon Islands",
+          "list": [
+            "Solomon Islands"
+          ]
+        },
+        {
+          "canonicalForm": "Seychelles",
+          "list": [
+            "Seychelles"
+          ]
+        },
+        {
+          "canonicalForm": "Sudan",
+          "list": [
+            "Sudan"
+          ]
+        },
+        {
+          "canonicalForm": "Sweden",
+          "list": [
+            "Sweden"
+          ]
+        },
+        {
+          "canonicalForm": "Singapore",
+          "list": [
+            "Singapore"
+          ]
+        },
+        {
+          "canonicalForm": "Saint Helena, Ascension And Tristan Da Cunha",
+          "list": [
+            "Saint Helena, Ascension And Tristan Da Cunha"
+          ]
+        },
+        {
+          "canonicalForm": "Slovenia",
+          "list": [
+            "Slovenia"
+          ]
+        },
+        {
+          "canonicalForm": "Svalbard And Jan Mayen",
+          "list": [
+            "Svalbard And Jan Mayen"
+          ]
+        },
+        {
+          "canonicalForm": "Slovakia",
+          "list": [
+            "Slovakia"
+          ]
+        },
+        {
+          "canonicalForm": "Sierra Leone",
+          "list": [
+            "Sierra Leone"
+          ]
+        },
+        {
+          "canonicalForm": "San Marino",
+          "list": [
+            "San Marino"
+          ]
+        },
+        {
+          "canonicalForm": "Senegal",
+          "list": [
+            "Senegal"
+          ]
+        },
+        {
+          "canonicalForm": "Somalia",
+          "list": [
+            "Somalia"
+          ]
+        },
+        {
+          "canonicalForm": "Suriname",
+          "list": [
+            "Suriname"
+          ]
+        },
+        {
+          "canonicalForm": "South Sudan",
+          "list": [
+            "South Sudan"
+          ]
+        },
+        {
+          "canonicalForm": "Sao Tome and Principe",
+          "list": [
+            "Sao Tome and Principe"
+          ]
+        },
+        {
+          "canonicalForm": "El Salvador",
+          "list": [
+            "El Salvador"
+          ]
+        },
+        {
+          "canonicalForm": "Sint Maarten",
+          "list": [
+            "Sint Maarten"
+          ]
+        },
+        {
+          "canonicalForm": "Syrian Arab Republic",
+          "list": [
+            "Syrian Arab Republic"
+          ]
+        },
+        {
+          "canonicalForm": "Swaziland",
+          "list": [
+            "Swaziland"
+          ]
+        },
+        {
+          "canonicalForm": "Turks And Caicos Islands",
+          "list": [
+            "Turks And Caicos Islands"
+          ]
+        },
+        {
+          "canonicalForm": "Chad",
+          "list": [
+            "Chad"
+          ]
+        },
+        {
+          "canonicalForm": "French Southern Territories",
+          "list": [
+            "French Southern Territories"
+          ]
+        },
+        {
+          "canonicalForm": "Togo",
+          "list": [
+            "Togo"
+          ]
+        },
+        {
+          "canonicalForm": "Thailand",
+          "list": [
+            "Thailand"
+          ]
+        },
+        {
+          "canonicalForm": "Tajikistan",
+          "list": [
+            "Tajikistan"
+          ]
+        },
+        {
+          "canonicalForm": "Tokelau",
+          "list": [
+            "Tokelau"
+          ]
+        },
+        {
+          "canonicalForm": "Timor-Leste, Democratic Republic of",
+          "list": [
+            "Timor-Leste, Democratic Republic of"
+          ]
+        },
+        {
+          "canonicalForm": "Turkmenistan",
+          "list": [
+            "Turkmenistan"
+          ]
+        },
+        {
+          "canonicalForm": "Tunisia",
+          "list": [
+            "Tunisia"
+          ]
+        },
+        {
+          "canonicalForm": "Tonga",
+          "list": [
+            "Tonga"
+          ]
+        },
+        {
+          "canonicalForm": "Turkey",
+          "list": [
+            "Turkey"
+          ]
+        },
+        {
+          "canonicalForm": "Trinidad And Tobago",
+          "list": [
+            "Trinidad And Tobago"
+          ]
+        },
+        {
+          "canonicalForm": "Tuvalu",
+          "list": [
+            "Tuvalu"
+          ]
+        },
+        {
+          "canonicalForm": "Taiwan",
+          "list": [
+            "Taiwan"
+          ]
+        },
+        {
+          "canonicalForm": "Tanzania, United Republic Of",
+          "list": [
+            "Tanzania, United Republic Of"
+          ]
+        },
+        {
+          "canonicalForm": "Ukraine",
+          "list": [
+            "Ukraine"
+          ]
+        },
+        {
+          "canonicalForm": "Uganda",
+          "list": [
+            "Uganda"
+          ]
+        },
+        {
+          "canonicalForm": "United States Minor Outlying Islands",
+          "list": [
+            "United States Minor Outlying Islands"
+          ]
+        },
+        {
+          "canonicalForm": "United States",
+          "list": [
+            "United States",
+            "US",
+            "USA"
+          ]
+        },
+        {
+          "canonicalForm": "Uruguay",
+          "list": [
+            "Uruguay"
+          ]
+        },
+        {
+          "canonicalForm": "Uzbekistan",
+          "list": [
+            "Uzbekistan"
+          ]
+        },
+        {
+          "canonicalForm": "Vatican City State",
+          "list": [
+            "Vatican City State"
+          ]
+        },
+        {
+          "canonicalForm": "Saint Vincent And The Grenadines",
+          "list": [
+            "Saint Vincent And The Grenadines"
+          ]
+        },
+        {
+          "canonicalForm": "Venezuela, Bolivarian Republic Of",
+          "list": [
+            "Venezuela, Bolivarian Republic Of",
+            "Venezuela"
+          ]
+        },
+        {
+          "canonicalForm": "Virgin Islands (British)",
+          "list": [
+            "Virgin Islands (British)"
+          ]
+        },
+        {
+          "canonicalForm": "Virgin Islands (US)",
+          "list": [
+            "Virgin Islands (US)"
+          ]
+        },
+        {
+          "canonicalForm": "Viet Nam",
+          "list": [
+            "Viet Nam"
+          ]
+        },
+        {
+          "canonicalForm": "Vanuatu",
+          "list": [
+            "Vanuatu"
+          ]
+        },
+        {
+          "canonicalForm": "Wallis And Futuna",
+          "list": [
+            "Wallis And Futuna"
+          ]
+        },
+        {
+          "canonicalForm": "Samoa",
+          "list": [
+            "Samoa"
+          ]
+        },
+        {
+          "canonicalForm": "Yemen",
+          "list": [
+            "Yemen"
+          ]
+        },
+        {
+          "canonicalForm": "Mayotte",
+          "list": [
+            "Mayotte"
+          ]
+        },
+        {
+          "canonicalForm": "South Africa",
+          "list": [
+            "South Africa"
+          ]
+        },
+        {
+          "canonicalForm": "Zambia",
+          "list": [
+            "Zambia"
+          ]
+        },
+        {
+          "canonicalForm": "Zimbabwe",
+          "list": [
+            "Zimbabwe"
+          ]
+        }
+      ],
+      "roles": []
+    },
+    {
+      "name": "Language",
+      "subLists": [
+        {
+          "canonicalForm": "en",
+          "list": [
+            "english"
+          ]
+        },
+        {
+          "canonicalForm": "fr",
+          "list": [
+            "french"
+          ]
+        },
+        {
+          "canonicalForm": "zh",
+          "list": [
+            "chinese"
+          ]
+        },
+        {
+          "canonicalForm": "ru",
+          "list": [
+            "russian"
+          ]
+        },
+        {
+          "canonicalForm": "de",
+          "list": [
+            "german"
+          ]
+        },
+        {
+          "canonicalForm": "af",
+          "list": [
+            "afrikaans",
+            "afrikaan"
+          ]
+        },
+        {
+          "canonicalForm": "ar",
+          "list": [
+            "arabic"
+          ]
+        },
+        {
+          "canonicalForm": "bn",
+          "list": [
+            "bengali"
+          ]
+        },
+        {
+          "canonicalForm": "bs",
+          "list": [
+            "bosnian"
+          ]
+        },
+        {
+          "canonicalForm": "bg",
+          "list": [
+            "bulgarian"
+          ]
+        },
+        {
+          "canonicalForm": "ca",
+          "list": [
+            "catalan",
+            "valencian"
+          ]
+        },
+        {
+          "canonicalForm": "hr",
+          "list": [
+            "croatian"
+          ]
+        },
+        {
+          "canonicalForm": "cs",
+          "list": [
+            "czech"
+          ]
+        },
+        {
+          "canonicalForm": "da",
+          "list": [
+            "danish"
+          ]
+        },
+        {
+          "canonicalForm": "nl",
+          "list": [
+            "dutch",
+            "flemish"
+          ]
+        },
+        {
+          "canonicalForm": "et",
+          "list": [
+            "estonian"
+          ]
+        },
+        {
+          "canonicalForm": "fj",
+          "list": [
+            "fijian"
+          ]
+        },
+        {
+          "canonicalForm": "fi",
+          "list": [
+            "finnish"
+          ]
+        },
+        {
+          "canonicalForm": "el",
+          "list": [
+            "greek"
+          ]
+        },
+        {
+          "canonicalForm": "ht",
+          "list": [
+            "haitian",
+            "creole"
+          ]
+        },
+        {
+          "canonicalForm": "he",
+          "list": [
+            "hebrew"
+          ]
+        },
+        {
+          "canonicalForm": "hi",
+          "list": [
+            "hindi"
+          ]
+        },
+        {
+          "canonicalForm": "hu",
+          "list": [
+            "hungarian"
+          ]
+        },
+        {
+          "canonicalForm": "id",
+          "list": [
+            "indonesian"
+          ]
+        },
+        {
+          "canonicalForm": "it",
+          "list": [
+            "italian"
+          ]
+        },
+        {
+          "canonicalForm": "ja",
+          "list": [
+            "japanese"
+          ]
+        },
+        {
+          "canonicalForm": "ko",
+          "list": [
+            "korean"
+          ]
+        },
+        {
+          "canonicalForm": "lv",
+          "list": [
+            "latvian"
+          ]
+        },
+        {
+          "canonicalForm": "lt",
+          "list": [
+            "lithuanian"
+          ]
+        },
+        {
+          "canonicalForm": "mg",
+          "list": [
+            "malagasy"
+          ]
+        },
+        {
+          "canonicalForm": "ms",
+          "list": [
+            "malay"
+          ]
+        },
+        {
+          "canonicalForm": "mt",
+          "list": [
+            "maltese"
+          ]
+        },
+        {
+          "canonicalForm": "no",
+          "list": [
+            "norwegian"
+          ]
+        },
+        {
+          "canonicalForm": "fa",
+          "list": [
+            "persian"
+          ]
+        },
+        {
+          "canonicalForm": "pl",
+          "list": [
+            "polish"
+          ]
+        },
+        {
+          "canonicalForm": "pt",
+          "list": [
+            "portuguese"
+          ]
+        },
+        {
+          "canonicalForm": "ro",
+          "list": [
+            "romanian",
+            "moldavian",
+            "moldovan"
+          ]
+        },
+        {
+          "canonicalForm": "sm",
+          "list": [
+            "samoan"
+          ]
+        },
+        {
+          "canonicalForm": "sr",
+          "list": [
+            "serbian"
+          ]
+        },
+        {
+          "canonicalForm": "sk",
+          "list": [
+            "slovak"
+          ]
+        },
+        {
+          "canonicalForm": "sl",
+          "list": [
+            "slovenian"
+          ]
+        },
+        {
+          "canonicalForm": "es",
+          "list": [
+            "castilian",
+            "spanish"
+          ]
+        },
+        {
+          "canonicalForm": "sv",
+          "list": [
+            "swedish"
+          ]
+        },
+        {
+          "canonicalForm": "ty",
+          "list": [
+            "tahitian"
+          ]
+        },
+        {
+          "canonicalForm": "ta",
+          "list": [
+            "tamil"
+          ]
+        },
+        {
+          "canonicalForm": "th",
+          "list": [
+            "thai"
+          ]
+        },
+        {
+          "canonicalForm": "to",
+          "list": [
+            "tonga"
+          ]
+        },
+        {
+          "canonicalForm": "tr",
+          "list": [
+            "turkish"
+          ]
+        },
+        {
+          "canonicalForm": "uk",
+          "list": [
+            "ukrainian"
+          ]
+        },
+        {
+          "canonicalForm": "ur",
+          "list": [
+            "urdu"
+          ]
+        },
+        {
+          "canonicalForm": "vi",
+          "list": [
+            "vietnamese"
+          ]
+        },
+        {
+          "canonicalForm": "cy",
+          "list": [
+            "welsh"
+          ]
+        }
+      ],
+      "roles": []
+    },
+    {
+      "name": "Medication.Type",
+      "subLists": [
+        {
+          "canonicalForm": "composition",
+          "list": [
+            "compositions",
+            "substance",
+            "substances",
+            "ingredient",
+            "ingredients"
+          ]
+        },
+        {
+          "canonicalForm": "indication",
+          "list": [
+            "indications",
+            "usage",
+            "use"
+          ]
+        }
+      ],
+      "roles": []
+    },
+    {
+      "name": "Place.Type",
+      "subLists": [
+        {
+          "canonicalForm": "pharmacy",
+          "list": [
+            "pharmacy",
+            "pharmacies"
+          ]
+        },
+        {
+          "canonicalForm": "hospital",
+          "list": [
+            "hospital",
+            "hospitals"
+          ]
+        }
+      ],
+      "roles": []
+    }
+  ],
+  "patternAnyEntities": [],
+  "regex_entities": [],
+  "prebuiltEntities": [],
+  "model_features": [],
+  "regex_features": [],
+  "patterns": [],
+  "utterances": [
+    {
+      "text": "1st microsoft way, redmond",
+      "intent": "None",
+      "entities": [
+        {
+          "entity": "Place.Location",
+          "startPos": 0,
+          "endPos": 25
+        }
+      ]
+    },
+    {
+      "text": "39 quai du président roosevelt, issy-les-moulineaux",
+      "intent": "None",
+      "entities": [
+        {
+          "entity": "Place.Location",
+          "startPos": 0,
+          "endPos": 50
+        }
+      ]
+    },
+    {
+      "text": "contraindications for ibuprofen",
+      "intent": "Intent.Medications.GetInformation",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 22,
+          "endPos": 30
+        }
+      ]
+    },
+    {
+      "text": "convert doliprane in russian",
+      "intent": "Intent.Medications.Translate",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 8,
+          "endPos": 16
+        }
+      ]
+    },
+    {
+      "text": "convert ventolin in french",
+      "intent": "Intent.Medications.Translate",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 8,
+          "endPos": 15
+        }
+      ]
+    },
+    {
+      "text": "details about a medication",
+      "intent": "Intent.Medications.GetInformation",
+      "entities": []
+    },
+    {
+      "text": "doliprane",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "equivalent of ibuprofen in france",
+      "intent": "Intent.Medications.Translate",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 14,
+          "endPos": 22
+        }
+      ]
+    },
+    {
+      "text": "equivalent of ibuprofen in russia",
+      "intent": "Intent.Medications.Translate",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 14,
+          "endPos": 22
+        }
+      ]
+    },
+    {
+      "text": "equivalent of paracetamol in england",
+      "intent": "Intent.Medications.Translate",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 14,
+          "endPos": 24
+        }
+      ]
+    },
+    {
+      "text": "find a medical location in paris",
+      "intent": "Intent.Places.FindLocation",
+      "entities": [
+        {
+          "entity": "Place.Location",
+          "startPos": 27,
+          "endPos": 31
+        }
+      ]
+    },
+    {
+      "text": "find a pharmacy in london",
+      "intent": "Intent.Places.FindLocation",
+      "entities": [
+        {
+          "entity": "Place.Location",
+          "startPos": 19,
+          "endPos": 24
+        }
+      ]
+    },
+    {
+      "text": "find a pharmacy in madrid",
+      "intent": "Intent.Places.FindLocation",
+      "entities": [
+        {
+          "entity": "Place.Location",
+          "startPos": 19,
+          "endPos": 24
+        }
+      ]
+    },
+    {
+      "text": "find a pharmacy in paris",
+      "intent": "Intent.Places.FindLocation",
+      "entities": [
+        {
+          "entity": "Place.Location",
+          "startPos": 19,
+          "endPos": 23
+        }
+      ]
+    },
+    {
+      "text": "find a pharmacy in seattle",
+      "intent": "Intent.Places.FindLocation",
+      "entities": [
+        {
+          "entity": "Place.Location",
+          "startPos": 19,
+          "endPos": 25
+        }
+      ]
+    },
+    {
+      "text": "find an hospital near 39 quai du president roosevelt, issy les moulineaux",
+      "intent": "Intent.Places.FindLocation",
+      "entities": [
+        {
+          "entity": "Place.Location",
+          "startPos": 22,
+          "endPos": 72
+        }
+      ]
+    },
+    {
+      "text": "find an pharmacy near 39 quai du president roosevelt , issy les moulineaux",
+      "intent": "Intent.Places.FindLocation",
+      "entities": [
+        {
+          "entity": "Place.Location",
+          "startPos": 22,
+          "endPos": 73
+        }
+      ]
+    },
+    {
+      "text": "france",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "french",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "get information about doliprane",
+      "intent": "Intent.Medications.GetInformation",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 22,
+          "endPos": 30
+        }
+      ]
+    },
+    {
+      "text": "get information about paracetamol",
+      "intent": "Intent.Medications.GetInformation",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 22,
+          "endPos": 32
+        }
+      ]
+    },
+    {
+      "text": "get information about tylenol",
+      "intent": "Intent.Medications.GetInformation",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 22,
+          "endPos": 28
+        }
+      ]
+    },
+    {
+      "text": "hello",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "help me to find a medical location",
+      "intent": "Intent.Places.FindLocation",
+      "entities": []
+    },
+    {
+      "text": "hi",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "how are you",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "i need details about a medication",
+      "intent": "Intent.Medications.GetInformation",
+      "entities": []
+    },
+    {
+      "text": "i need information about a medication",
+      "intent": "Intent.Medications.GetInformation",
+      "entities": []
+    },
+    {
+      "text": "i need to find a pharmacy",
+      "intent": "Intent.Places.FindLocation",
+      "entities": []
+    },
+    {
+      "text": "ibuprofen",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "indications for aspirin",
+      "intent": "Intent.Medications.GetInformation",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 16,
+          "endPos": 22
+        }
+      ]
+    },
+    {
+      "text": "indications for paracetamol",
+      "intent": "Intent.Medications.GetInformation",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 16,
+          "endPos": 26
+        }
+      ]
+    },
+    {
+      "text": "information about a medication",
+      "intent": "Intent.Medications.GetInformation",
+      "entities": []
+    },
+    {
+      "text": "paracetamol",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "russia",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "translate ibuprofen",
+      "intent": "Intent.Medications.Translate",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 10,
+          "endPos": 18
+        }
+      ]
+    },
+    {
+      "text": "translate paracetamol",
+      "intent": "Intent.Medications.Translate",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 10,
+          "endPos": 20
+        }
+      ]
+    },
+    {
+      "text": "translate tylenol",
+      "intent": "Intent.Medications.Translate",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 10,
+          "endPos": 16
+        }
+      ]
+    },
+    {
+      "text": "translate tylenol in french",
+      "intent": "Intent.Medications.Translate",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 10,
+          "endPos": 16
+        }
+      ]
+    },
+    {
+      "text": "translate ventolin in french",
+      "intent": "Intent.Medications.Translate",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 10,
+          "endPos": 17
+        }
+      ]
+    },
+    {
+      "text": "tylenol",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "united states",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "usage of ibuprofen",
+      "intent": "Intent.Medications.GetInformation",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 9,
+          "endPos": 17
+        }
+      ]
+    },
+    {
+      "text": "usage of paracetamol",
+      "intent": "Intent.Medications.GetInformation",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 9,
+          "endPos": 19
+        }
+      ]
+    },
+    {
+      "text": "what are the indications for acetaminophen",
+      "intent": "Intent.Medications.GetInformation",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 29,
+          "endPos": 41
+        }
+      ]
+    },
+    {
+      "text": "what are the indications for acetaminophen ?",
+      "intent": "Intent.Medications.GetInformation",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 29,
+          "endPos": 41
+        }
+      ]
+    },
+    {
+      "text": "what are the indications for acetaminophen?",
+      "intent": "Intent.Medications.GetInformation",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 29,
+          "endPos": 41
+        }
+      ]
+    },
+    {
+      "text": "what are the indications for aspirin",
+      "intent": "Intent.Medications.GetInformation",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 29,
+          "endPos": 35
+        }
+      ]
+    },
+    {
+      "text": "what are the indications for paracetamol",
+      "intent": "Intent.Medications.GetInformation",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 29,
+          "endPos": 39
+        }
+      ]
+    },
+    {
+      "text": "what are the ingredients in ibuprofen ?",
+      "intent": "Intent.Medications.GetInformation",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 28,
+          "endPos": 36
+        }
+      ]
+    },
+    {
+      "text": "what are the ingredients in paracetamol ?",
+      "intent": "Intent.Medications.GetInformation",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 28,
+          "endPos": 38
+        }
+      ]
+    },
+    {
+      "text": "what are the substances in aspirin",
+      "intent": "Intent.Medications.GetInformation",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 27,
+          "endPos": 33
+        }
+      ]
+    },
+    {
+      "text": "what are the substances in ibuprofen",
+      "intent": "Intent.Medications.GetInformation",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 27,
+          "endPos": 35
+        }
+      ]
+    },
+    {
+      "text": "what are the substances in paracetamol",
+      "intent": "Intent.Medications.GetInformation",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 27,
+          "endPos": 37
+        }
+      ]
+    },
+    {
+      "text": "what is aspirin in chinese",
+      "intent": "Intent.Medications.Translate",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 8,
+          "endPos": 14
+        }
+      ]
+    },
+    {
+      "text": "what is doliprane in chinese",
+      "intent": "Intent.Medications.Translate",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 8,
+          "endPos": 16
+        }
+      ]
+    },
+    {
+      "text": "what is ibuprofen in russian",
+      "intent": "Intent.Medications.Translate",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 8,
+          "endPos": 16
+        }
+      ]
+    },
+    {
+      "text": "what is ibuprofen in turkish?",
+      "intent": "Intent.Medications.Translate",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 8,
+          "endPos": 16
+        }
+      ]
+    },
+    {
+      "text": "what is paracetamol in english",
+      "intent": "Intent.Medications.Translate",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 8,
+          "endPos": 18
+        }
+      ]
+    },
+    {
+      "text": "what is paracetamol in english?",
+      "intent": "Intent.Medications.Translate",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 8,
+          "endPos": 18
+        }
+      ]
+    },
+    {
+      "text": "what is the active substance in ibuprofen?",
+      "intent": "Intent.Medications.GetInformation",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 32,
+          "endPos": 40
+        }
+      ]
+    },
+    {
+      "text": "what is the active substance in paracetamol ?",
+      "intent": "Intent.Medications.GetInformation",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 32,
+          "endPos": 42
+        }
+      ]
+    },
+    {
+      "text": "what is the composition of aspirin",
+      "intent": "Intent.Medications.GetInformation",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 27,
+          "endPos": 33
+        }
+      ]
+    },
+    {
+      "text": "what is the composition of aspirin?",
+      "intent": "Intent.Medications.GetInformation",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 27,
+          "endPos": 33
+        }
+      ]
+    },
+    {
+      "text": "what is the composition of ibuprofen",
+      "intent": "Intent.Medications.GetInformation",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 27,
+          "endPos": 35
+        }
+      ]
+    },
+    {
+      "text": "what is the composition of paracetamol",
+      "intent": "Intent.Medications.GetInformation",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 27,
+          "endPos": 37
+        }
+      ]
+    },
+    {
+      "text": "what is the drug composition of ibuprofen?",
+      "intent": "Intent.Medications.GetInformation",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 32,
+          "endPos": 40
+        }
+      ]
+    },
+    {
+      "text": "what is the drug composition of paracetamol ?",
+      "intent": "Intent.Medications.GetInformation",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 32,
+          "endPos": 42
+        }
+      ]
+    },
+    {
+      "text": "what is ventolin in france",
+      "intent": "Intent.Medications.Translate",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 8,
+          "endPos": 15
+        }
+      ]
+    },
+    {
+      "text": "what is ventolin in france?",
+      "intent": "Intent.Medications.Translate",
+      "entities": [
+        {
+          "entity": "Medication.Name",
+          "startPos": 8,
+          "endPos": 15
+        }
+      ]
+    },
+    {
+      "text": "what's up",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "where is the closest pharmacy",
+      "intent": "Intent.Places.FindLocation",
+      "entities": []
+    },
+    {
+      "text": "where is the nearest hospital",
+      "intent": "Intent.Places.FindLocation",
+      "entities": []
+    }
+  ]
+}
