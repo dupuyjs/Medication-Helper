@@ -10,8 +10,9 @@ Run `npm install` in the `Medication-Helper` directory.
 
 ### Running the Bot
 
-1. Run `npm run start` in the `Medication-Helper` directory.
-2. Navigate to `http://localhost:8080/` to start interacting with your bot.
+1. Download BotFramework Emulator (available for Mac, Windows, and Linux) via the [GitHub releases page](https://github.com/Microsoft/BotFramework-Emulator/releases)
+2. Run `npm run start` in the `Medication-Helper` directory.
+3. Start BotFramework Emulator and Select `http://localhost:8080/api/messages` to start interacting with your bot.
 
 ### Configuration
 
