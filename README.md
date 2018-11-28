@@ -78,7 +78,7 @@ We now have to register this bot hosted in this Azure Web App.
 Additional link that may help you during this 3rd setup phase:
 - https://docs.microsoft.com/en-us/azure/bot-service/bot-service-quickstart-registration?view=azure-bot-service-3.0
 
-# DEMO
+# Demo
 
 - In the **Azure Portal**, navigate to the **InsiderBot<YourCity> resource**
 - Click to **'Test in Web Chat'** and say **'I'm looking for a medical location'** to activate the bot
