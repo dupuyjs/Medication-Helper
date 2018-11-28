@@ -12,17 +12,23 @@
 - Once done, you can test your LUIS model by typing out an utterance on the Test pannel. Try **'find a pharmacy in Paris'**, for instance. 
 - Finally, **click on Publish App**, assign a key, and click Publish. You will be given an **Endpoint url**. Copy this URL somewhere as you will need it later like:
 
+``` text
 COGNITIVE_LUIS_URL = https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/{YourApplicationId}?subscription-key={YourSubscriptionKey}
+```
 
 - **Generate a Bing Key**. Go to: https://www.bingmapsportal.com/Application and Sign-in using a MS Account to generate a key
 - Go to **My account -> My Keys** and create a new key. **Copy this key** as you will need it later like:
 
+``` text
 BING_MAPS_API_KEY = {YourSubscriptionBingKey}
+```
 
 - Using **VS Code**, create a **.env** file and put those 2 keys inside:
 
+``` text
 COGNITIVE_LUIS_URL = https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/{YourApplicationId}?subscription-key={YourSubscriptionKey}
 BING_MAPS_API_KEY = {YourSubscriptionBingKey}
+```
 
 - **Download BotFramework Emulator** (available for Mac, Windows, and Linux) via the GitHub releases page: https://github.com/Microsoft/BotFramework-Emulator/releases
 - Run **'npm run start'** in the Medication-Helper directory.
